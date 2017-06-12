@@ -1,7 +1,14 @@
 .DS_Store
+
+# Gradle
+/.gradle/
+/build
+
+# Xcode
 *.xccheckout
 *.xcscmblueprint
 xcuserdata
+
 Carthage/
 Pods/
 .rubygems/
