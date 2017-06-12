@@ -2,7 +2,8 @@
 
 # Gradle
 /.gradle/
-/build
+build
+gradlew.bat
 
 # Xcode
 *.xccheckout
