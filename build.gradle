@@ -1,0 +1,8 @@
+gradlePlugin {
+    plugins {
+        swiftpm {
+            id = 'at.phatbl'
+            implementationClass = 'at.phatbl.swiftpm.SwiftPMPlugin'
+        }
+    }
+}
