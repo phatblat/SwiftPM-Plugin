@@ -10,7 +10,9 @@ gradlew.bat
 *.xcscmblueprint
 xcuserdata
 
+/.idea/
 Carthage/
 Pods/
 .rubygems/
 bin/
+
