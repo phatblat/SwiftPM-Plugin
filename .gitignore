@@ -1,16 +1,16 @@
 .DS_Store
 
 # Gradle
-/.gradle/
-build
+.gradle/
+build/
 gradlew.bat
 
 # Xcode
 *.xccheckout
 *.xcscmblueprint
-xcuserdata
+xcuserdata/
 
-/.idea/
+.idea/
 Carthage/
 Pods/
 .rubygems/

@@ -1,0 +1,17 @@
+/*
+ * build.gradle
+ * SwiftPM example
+ */
+
+buildscript {
+    repositories {
+        maven { url "$buildDir/../../build/maven/repo" }
+        mavenLocal()
+        jcenter()
+    }
+    dependencies {
+        classpath group: 'at.phatbl', name: 'swiftpm', version: '+'
+    }
+}
+
+apply plugin: 'swiftpm'
