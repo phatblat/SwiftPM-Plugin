@@ -13,12 +13,12 @@ repositories {
 
 // In this section you declare the dependencies for your production and test code
 dependencies {
-//    testCompile 'junit:junit:4.12'
     testCompile 'org.spockframework:spock-core:1.1-groovy-2.4'
 }
 
 configurations.all {
     resolutionStrategy {
+        // Force 2.4.10 because gradle 3.5 wrapper uses it but spock wants 2.4.9
         force 'org.codehaus.groovy:groovy-all:2.4.10'
     }
 }
