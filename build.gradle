@@ -22,13 +22,6 @@ dependencies {
     }
 }
 
-//configurations.all {
-//    resolutionStrategy {
-//        // Force 2.4.10 because gradle 3.5 wrapper uses it but spock wants 2.4.9
-//        force 'org.codehaus.groovy:groovy-all:2.4.10'
-//    }
-//}
-
 /* -------------------------------------------------------------------------- */
 // Properties
 /* -------------------------------------------------------------------------- */
