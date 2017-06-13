@@ -5,7 +5,7 @@
 
 apply plugin: 'groovy'
 apply plugin: 'java-gradle-plugin'
-apply plugin: 'maven-publish'
+apply plugin: 'maven'
 
 repositories {
     jcenter()
@@ -58,36 +58,10 @@ gradlePlugin {
     }
 }
 
-// maven-publish
-publishing {
-    repositories {
-        maven {
-            url "$buildDir/maven/repo"
-        }
-    }
-    publications {
-        swiftpm(MavenPublication) {
-            groupId group
-            artifactId artifactName
-            version version
-
-/*            artifact "$javaPackage-${version}.jar", {
-                extension 'jar'
-            }*/
-
-//            pom.withXml {
-//                asNode().appendNode('description',
-//                        'A demonstration of maven POM customization')
-//            }
-//
-//            <licenses>
-//              <license>
-//                <name>Apache License, Version 2.0</name>
-//                <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
-//                <distribution>repo</distribution>
-//                <comments>A business-friendly OSS license</comments>
-//              </license>
-//            </licenses>
-        }
+// maven
+uploadArchives {
+    repositories.mavenDeployer {
+        repository url: "file://$buildDir/maven/repo"
+        pom.artifactId = artifactName
     }
 }
