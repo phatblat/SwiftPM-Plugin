@@ -11,6 +11,10 @@ repositories {
     jcenter()
 }
 
+/* -------------------------------------------------------------------------- */
+// Build Configuration
+/* -------------------------------------------------------------------------- */
+
 // In this section you declare the dependencies for your production and test code
 dependencies {
     testCompile 'org.spockframework:spock-core:1.1-groovy-2.4', {
@@ -25,12 +29,31 @@ dependencies {
 //    }
 //}
 
+/* -------------------------------------------------------------------------- */
+// Properties
+/* -------------------------------------------------------------------------- */
+
+group = 'at.phatbl'
+version = '0.1.0'
+
+ext {
+    artifactName = name.toLowerCase()
+    javaPackage = group + '.' + artifactName
+    pluginClass =  name + 'Plugin'
+}
+
+archivesBaseName = javaPackage
+
+/* -------------------------------------------------------------------------- */
+// Deployment
+/* -------------------------------------------------------------------------- */
+
 // java-gradle-plugin
 gradlePlugin {
     plugins {
         swiftpm {
-            id = 'at.phatbl'
-            implementationClass = 'at.phatbl.swiftpm.SwiftPMPlugin'
+            id = artifactName
+            implementationClass = "$javaPackage.$pluginClass"
         }
     }
 }
@@ -39,7 +62,32 @@ gradlePlugin {
 publishing {
     repositories {
         maven {
-            url "${buildDir}/maven/repo"
+            url "$buildDir/maven/repo"
+        }
+    }
+    publications {
+        swiftpm(MavenPublication) {
+            groupId group
+            artifactId artifactName
+            version version
+
+/*            artifact "$javaPackage-${version}.jar", {
+                extension 'jar'
+            }*/
+
+//            pom.withXml {
+//                asNode().appendNode('description',
+//                        'A demonstration of maven POM customization')
+//            }
+//
+//            <licenses>
+//              <license>
+//                <name>Apache License, Version 2.0</name>
+//                <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+//                <distribution>repo</distribution>
+//                <comments>A business-friendly OSS license</comments>
+//              </license>
+//            </licenses>
         }
     }
 }
