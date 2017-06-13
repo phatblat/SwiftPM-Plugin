@@ -36,6 +36,15 @@ class SwiftPMPluginSpec extends Specification {
         task instanceof CleanTask
     }
 
+    def "has a reset task"() {
+        when:
+        task = project.tasks.swiftpmReset
+
+        then:
+        task != null
+        task instanceof ResetTask
+    }
+
     def "has a swift version task"() {
         when:
         task = project.tasks.swiftVersion

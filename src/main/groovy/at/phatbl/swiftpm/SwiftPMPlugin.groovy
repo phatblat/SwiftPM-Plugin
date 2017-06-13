@@ -12,6 +12,7 @@ class SwiftPMPlugin implements Plugin<Project> {
     Project project
     Task version
     Task clean
+    Task reset
     Task swiftVersion
 
     void apply(Project project) {
@@ -21,6 +22,7 @@ class SwiftPMPlugin implements Plugin<Project> {
 
         version = project.task TASK_VERSION, type: VersionTask
         clean = project.task TASK_CLEAN, type: CleanTask
+        reset = project.task TASK_RESET, type: ResetTask
         swiftVersion = project.task TASK_SWIFT_VERSION, type: SwiftVersionTask
 
     }

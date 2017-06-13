@@ -10,6 +10,7 @@ class Constants {
     static String SPM_TASK_PREFIX = 'swiftpm'
     static String TASK_VERSION = SPM_TASK_PREFIX + 'Version'
     static String TASK_CLEAN = SPM_TASK_PREFIX + 'Clean'
+    static String TASK_RESET = SPM_TASK_PREFIX + 'Reset'
 
     // Swift task names
     static String SWIFT_TASK_PREFIX = 'swift'
