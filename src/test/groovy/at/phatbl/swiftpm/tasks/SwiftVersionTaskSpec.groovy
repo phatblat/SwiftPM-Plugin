@@ -11,26 +11,25 @@ import static at.phatbl.swiftpm.Constants.*
 /**
  * Created by phatblat on 6/13/17.
  */
-class VersionTaskSpec extends Specification {
+class SwiftVersionTaskSpec extends Specification {
     @Shared Project project
     @Shared Task task
 
     def setup() {
         project = ProjectBuilder.builder().build()
-        task = project.task TASK_VERSION, type: VersionTask
+        task = project.task TASK_SWIFT_VERSION, type: SwiftVersionTask
     }
 
     def "can be added to project"() {
         expect:
         task != null
-        task instanceof VersionTask
+        task instanceof SwiftVersionTask
     }
 
     def "command contains tokens"() {
         expect:
         task.commandLine.containsAll([
             'swift',
-            'package',
             '--version'
         ])
     }

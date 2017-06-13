@@ -1,24 +1,38 @@
 package at.phatbl.swiftpm
 
-import at.phatbl.swiftpm.tasks.VersionTask
+import at.phatbl.swiftpm.tasks.*
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.testfixtures.ProjectBuilder
 import spock.lang.Shared
 import spock.lang.Specification
 
+import static at.phatbl.swiftpm.Constants.*
+
 class SwiftPMPluginSpec extends Specification {
     @Shared Project project
     @Shared Task task
 
-    def "project has a version task"() {
-        when:
+    def setup() {
         project = ProjectBuilder.builder().build()
         project.apply plugin: SwiftPMPlugin
+    }
+
+    def "has a version task"() {
+        when:
         task = project.tasks.swiftpmVersion
 
         then:
         task != null
         task instanceof VersionTask
+    }
+
+    def "has a swift version task"() {
+        when:
+        task = project.tasks.swiftVersion
+
+        then:
+        task != null
+        task instanceof SwiftVersionTask
     }
 }

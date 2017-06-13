@@ -1,6 +1,6 @@
 package at.phatbl.swiftpm
 
-import at.phatbl.swiftpm.tasks.VersionTask
+import at.phatbl.swiftpm.tasks.*
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.Task
@@ -11,6 +11,7 @@ import static at.phatbl.swiftpm.Constants.*
 class SwiftPMPlugin implements Plugin<Project> {
     Project project
     Task version
+    Task swiftVersion
 
     void apply(Project project) {
         this.project = project
@@ -18,6 +19,7 @@ class SwiftPMPlugin implements Plugin<Project> {
         showPluginVersion()
 
         version = project.task TASK_VERSION, type: VersionTask
+        swiftVersion = project.task TASK_SWIFT_VERSION, type: SwiftVersionTask
     }
 
     /**
