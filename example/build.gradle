@@ -5,7 +5,6 @@
 
 buildscript {
     repositories {
-        maven { url "$buildDir/../../build/maven/repo" }
         mavenLocal()
         jcenter()
     }
