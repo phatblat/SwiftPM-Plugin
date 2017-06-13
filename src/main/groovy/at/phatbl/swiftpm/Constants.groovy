@@ -5,4 +5,8 @@ package at.phatbl.swiftpm
  */
 class Constants {
     static String SWIFTPM_TASK_GROUP = "SwiftPM"
+
+    // Task names
+    static String TASK_PREFIX = 'swiftpm'
+    static String TASK_VERSION = TASK_PREFIX + 'Version'
 }

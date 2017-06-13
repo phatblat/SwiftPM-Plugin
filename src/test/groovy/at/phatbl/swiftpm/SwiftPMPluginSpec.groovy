@@ -1,28 +1,24 @@
 package at.phatbl.swiftpm
 
+import at.phatbl.swiftpm.tasks.VersionTask
+import org.gradle.api.Project
+import org.gradle.api.Task
+import org.gradle.testfixtures.ProjectBuilder
+import spock.lang.Shared
 import spock.lang.Specification
 
 class SwiftPMPluginSpec extends Specification {
-    def "when-then"() {
+    @Shared Project project
+    @Shared Task task
+
+    def "project has a version task"() {
         when:
-        def x = Math.max(1, 2)
+        project = ProjectBuilder.builder().build()
+        project.apply plugin: SwiftPMPlugin
+        task = project.tasks.swiftpmVersion
 
         then:
-        x == 2
-    }
-
-    def "expect"() {
-        expect:
-        Math.max(1, 2) == 2
-    }
-
-    def "computing the maximum of two numbers"() {
-        expect:
-        Math.max(a, b) == c
-
-        where:
-        a << [5, 3]
-        b << [1, 9]
-        c << [5, 9]
+        task != null
+        task instanceof VersionTask
     }
 }

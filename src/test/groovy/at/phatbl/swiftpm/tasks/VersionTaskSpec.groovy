@@ -5,6 +5,8 @@ import org.gradle.api.Task
 import org.gradle.testfixtures.ProjectBuilder
 import spock.lang.Specification
 
+import static at.phatbl.swiftpm.Constants.*
+
 /**
  * Created by phatblat on 6/13/17.
  */
@@ -14,7 +16,7 @@ class VersionTaskSpec extends Specification {
 
     def setup() {
         project = ProjectBuilder.builder().build()
-        task = project.task 'swiftpmVersion', type: VersionTask
+        task = project.task TASK_VERSION, type: VersionTask
     }
 
     def cleanup() {
