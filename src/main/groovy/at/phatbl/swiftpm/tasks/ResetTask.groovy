@@ -3,7 +3,8 @@ package at.phatbl.swiftpm.tasks
 import static at.phatbl.swiftpm.Constants.*
 
 /**
- * Reset the complete cache/build directory.
+ * Resets the complete cache/build directory.
+ * FIXME: Fails if the .build directory doesn't exist.
  */
 class ResetTask extends AbstractExecTask {
     ResetTask() {
