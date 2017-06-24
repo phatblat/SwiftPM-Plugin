@@ -10,23 +10,25 @@ import static at.phatbl.swiftpm.Constants.*
 
 class SwiftPMPlugin implements Plugin<Project> {
     Project project
-    Task version
+
     Task clean
+    Task describe
     Task reset
-    Task toolsVersion
     Task swiftVersion
+    Task toolsVersion
+    Task version
 
     void apply(Project project) {
         this.project = project
 
         showPluginVersion()
 
-        version = project.task TASK_VERSION, type: VersionTask
         clean = project.task TASK_CLEAN, type: CleanTask
+        describe = project.task TASK_DESCRIBE, type: DescribeTask
         reset = project.task TASK_RESET, type: ResetTask
-        toolsVersion = project.task TASK_TOOLS_VERSION, type: ToolsVersionTask
         swiftVersion = project.task TASK_SWIFT_VERSION, type: SwiftVersionTask
-
+        toolsVersion = project.task TASK_TOOLS_VERSION, type: ToolsVersionTask
+        version = project.task TASK_VERSION, type: VersionTask
     }
 
     /**

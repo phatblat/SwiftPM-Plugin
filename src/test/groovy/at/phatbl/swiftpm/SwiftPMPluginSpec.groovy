@@ -18,15 +18,6 @@ class SwiftPMPluginSpec extends Specification {
         project.apply plugin: SwiftPMPlugin
     }
 
-    def "has a version task"() {
-        when:
-        task = project.tasks.swiftpmVersion
-
-        then:
-        task != null
-        task instanceof VersionTask
-    }
-
     def "has a clean task"() {
         when:
         task = project.tasks.swiftpmClean
@@ -34,6 +25,15 @@ class SwiftPMPluginSpec extends Specification {
         then:
         task != null
         task instanceof CleanTask
+    }
+
+    def "has a describe task"() {
+        when:
+        task = project.tasks.swiftpmDescribe
+
+        then:
+        task != null
+        task instanceof DescribeTask
     }
 
     def "has a reset task"() {
@@ -45,6 +45,15 @@ class SwiftPMPluginSpec extends Specification {
         task instanceof ResetTask
     }
 
+    def "has a swift version task"() {
+        when:
+        task = project.tasks.swiftVersion
+
+        then:
+        task != null
+        task instanceof SwiftVersionTask
+    }
+
     def "has a tools version task"() {
         when:
         task = project.tasks.swiftpmToolsVersion
@@ -54,12 +63,12 @@ class SwiftPMPluginSpec extends Specification {
         task instanceof ToolsVersionTask
     }
 
-    def "has a swift version task"() {
+    def "has a version task"() {
         when:
-        task = project.tasks.swiftVersion
+        task = project.tasks.swiftpmVersion
 
         then:
         task != null
-        task instanceof SwiftVersionTask
+        task instanceof VersionTask
     }
 }
