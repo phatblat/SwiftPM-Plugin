@@ -82,6 +82,10 @@ dependencies {
     //testCompileClasspath 'org.junit.platform:junit-platform-runner:1.0.0-M4'
 }
 
+// https://docs.gradle.org/4.0/release-notes.html#multiple-class-directories-for-a-single-source-set
+//sourceSets.main.output.classesDir = file("$buildDir/classes/main")
+//sourceSets.test.output.classesDir = file("$buildDir/classes/test")
+
 /* -------------------------------------------------------------------------- */
 // Properties
 /* -------------------------------------------------------------------------- */
