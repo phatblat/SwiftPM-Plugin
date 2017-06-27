@@ -14,12 +14,11 @@ object DumpPackageTaskSpec: Spek({
 
         beforeEachTest {
             project = ProjectBuilder.builder().build()
-            task = project.tasks.create("swiftpmDumpPackage", DumpPackageTask::class)
+            task = project.tasks.create("swiftpmDumpPackage", DumpPackageTask::class.java)
         }
 
-        it("should return the result of adding the first number to the second number") {
+        it("can be added to project") {
             assertEquals(6, 6)
         }
-
     }
 })
