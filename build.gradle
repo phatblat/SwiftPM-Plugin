@@ -42,6 +42,21 @@ wrapper {
 }
 
 /* -------------------------------------------------------------------------- */
+// Properties
+/* -------------------------------------------------------------------------- */
+
+group = 'at.phatbl'
+version = '0.1.0'
+
+ext {
+    artifactName = name.toLowerCase()
+    javaPackage = group + '.' + artifactName
+    pluginClass =  name + 'Plugin'
+}
+
+archivesBaseName = javaPackage
+
+/* -------------------------------------------------------------------------- */
 // Build Configuration
 /* -------------------------------------------------------------------------- */
 
@@ -83,27 +98,37 @@ dependencies {
 }
 
 // https://docs.gradle.org/4.0/release-notes.html#multiple-class-directories-for-a-single-source-set
-//sourceSets.main.output.classesDir = file("$buildDir/classes/main")
-//sourceSets.test.output.classesDir = file("$buildDir/classes/test")
-
-/* -------------------------------------------------------------------------- */
-// Properties
-/* -------------------------------------------------------------------------- */
-
-group = 'at.phatbl'
-version = '0.1.0'
-
-ext {
-    artifactName = name.toLowerCase()
-    javaPackage = group + '.' + artifactName
-    pluginClass =  name + 'Plugin'
+sourceSets {
+    main {
+        groovy.outputDir = file "$buildDir/classes/groovy/main"
+        // FIXME: Output still going to classes/java/main
+        kotlin.outputDir = file "$buildDir/classes/kotlin/main"
+    }
+    test {
+        groovy.outputDir = file "$buildDir/classes/groovy/test"
+        // FIXME: Output still going to classes/java/test
+        kotlin.outputDir = file "$buildDir/classes/kotlin/test"
+    }
 }
 
-archivesBaseName = javaPackage
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
 
 /* -------------------------------------------------------------------------- */
 // Testing
 /* -------------------------------------------------------------------------- */
+
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
 
 // org.junit.platform.gradle.plugin
 junitPlatform {
@@ -133,15 +158,5 @@ uploadArchives {
     repositories.mavenDeployer {
         repository url: "file://$buildDir/maven/repo"
         pom.artifactId = artifactName
-    }
-}
-compileKotlin {
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-}
-compileTestKotlin {
-    kotlinOptions {
-        jvmTarget = "1.8"
     }
 }
