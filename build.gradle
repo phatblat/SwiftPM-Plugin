@@ -8,21 +8,20 @@
 /* -------------------------------------------------------------------------- */
 
 buildscript {
-    ext.kotlinVersion = '1.1.3'
+    ext {
+        kotlinVersion = '1.1.3'
+        junitPlatformVersion = '1.0.0-M4'
+    }
     repositories {
-        maven {
-            url "https://plugins.gradle.org/m2/"
-        }
-        mavenCentral()
+        maven { url 'https://plugins.gradle.org/m2/' }
+        jcenter()
     }
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-noarg:$kotlinVersion"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0-M4'
+        classpath "org.junit.platform:junit-platform-gradle-plugin:$junitPlatformVersion"
     }
 }
 
-apply plugin: "org.jetbrains.kotlin.plugin.noarg"
 apply plugin: 'kotlin'
 apply plugin: 'org.jetbrains.kotlin.jvm'
 apply plugin: 'groovy'
@@ -61,14 +60,17 @@ archivesBaseName = javaPackage
 /* -------------------------------------------------------------------------- */
 
 repositories {
-    maven { url "http://dl.bintray.com/jetbrains/spek" }
+    maven { url 'http://dl.bintray.com/jetbrains/spek' }
     jcenter()
 }
 
 // In this section you declare the dependencies for your production and test code
 dependencies {
-    //compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlinVersion"
+    compile gradleApi()
+
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+/*    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlinVersion"*/
+    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"\
 
     // Spock
     testCompile 'org.spockframework:spock-core:1.1-groovy-2.4', {
@@ -77,24 +79,20 @@ dependencies {
 
     // Speck
     testCompile "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
-
-    testCompile 'org.jetbrains.spek:spek-api:1.1.2', {
-        exclude group: 'org.jetbrains.kotlin'
-    }
-
-    testRuntime 'org.jetbrains.spek:spek-junit-platform-engine:1.1.2', {
-        exclude group: 'org.junit.platform'
-        exclude group: 'org.jetbrains.kotlin'
-    }
-
     testCompile "org.jetbrains.kotlin:kotlin-test:$kotlinVersion"
-    //testCompile 'org.jetbrains.kotlin:kotlin-test-junit:1.0.0-beta-4584'
+    testCompile 'org.jetbrains.spek:spek-api:1.1.2'
+    testCompile "org.jetbrains.kotlin:kotlin-test:$kotlinVersion"
+    testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion"
+
+    testRuntime 'org.jetbrains.spek:spek-junit-platform-engine:1.1.2'
+    testCompile "org.junit.platform:junit-platform-engine:$junitPlatformVersion"
+    testRuntime "org.junit.platform:junit-platform-launcher:$junitPlatformVersion"
+    testRuntime "org.junit.platform:junit-platform-runner:$junitPlatformVersion"
+
+    //testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.0.0-M4'
 
     // For using JUnit 4
-    //compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
     //testCompile 'junit:junit:4.12'
-    //testCompileClasspath 'org.jetbrains.spek:spek-junit-platform-engine:1.1.2'
-    //testCompileClasspath 'org.junit.platform:junit-platform-runner:1.0.0-M4'
 }
 
 // https://docs.gradle.org/4.0/release-notes.html#multiple-class-directories-for-a-single-source-set
@@ -132,6 +130,7 @@ compileTestKotlin {
 
 // org.junit.platform.gradle.plugin
 junitPlatform {
+    platformVersion junitPlatformVersion
     filters {
         engines {
             include 'spek'
