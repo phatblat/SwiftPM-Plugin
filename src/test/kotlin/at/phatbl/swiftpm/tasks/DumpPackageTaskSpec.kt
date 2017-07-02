@@ -10,12 +10,13 @@ import kotlin.test.assertTrue
 
 object DumpPackageTaskSpec: Spek({
     describe("dump package task") {
-        var project = ProjectBuilder.builder().build()
-        var task = project.tasks.create("swiftpmDumpPackage", DumpPackageTask::class.java)
+        val clazz: Class<DumpPackageTask> = DumpPackageTask::class.java
+        var project: Project = ProjectBuilder.builder().build()
+        var task: Task = project.tasks.create("swiftpmDumpPackage", clazz)
 
         beforeEachTest {
             project = ProjectBuilder.builder().build()
-            task = project.tasks.create("swiftpmDumpPackage", DumpPackageTask::class.java)
+            task = project.tasks.create("swiftpmDumpPackage", clazz)
         }
 
         it("can be added to project") {
