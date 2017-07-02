@@ -7,7 +7,7 @@ import org.gradle.api.tasks.Exec
 // TODO: Figure out how to import static members
 //import at.phatbl.swiftpm.Constants.*
 
-class DumpPackageTask : Exec() {
+open class DumpPackageTask : Exec() {
     fun DumpPackageTask() {
         description = "Prints parsed Package.swift as JSON"
         group = "SwiftPM"
