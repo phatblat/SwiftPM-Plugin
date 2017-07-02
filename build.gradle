@@ -34,9 +34,9 @@ task removeBatchFile(type: Delete) {
 }
 
 wrapper {
-    gradleVersion = '4.1'
+    gradleVersion = '4.0'
     distributionType = 'ALL'
-    distributionUrl = 'https://repo.gradle.org/gradle/dist-snapshots/gradle-kotlin-dsl-4.1-20170622074548+0000-all.zip'
+//    distributionUrl = 'https://repo.gradle.org/gradle/dist-snapshots/gradle-kotlin-dsl-4.1-20170622074548+0000-all.zip'
     finalizedBy removeBatchFile
 }
 
