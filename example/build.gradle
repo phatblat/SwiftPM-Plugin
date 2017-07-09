@@ -14,3 +14,14 @@ buildscript {
 }
 
 apply plugin: 'swiftpm'
+
+task removeBatchFile(type: Delete) {
+    delete 'gradlew.bat'
+}
+
+wrapper {
+    gradleVersion = '4.0'
+    distributionType = 'ALL'
+    finalizedBy removeBatchFile
+}
+
