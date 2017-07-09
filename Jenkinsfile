@@ -17,8 +17,8 @@ node {
                 branches: [[name: env.sha1]],
                 extensions: [
                     //[$class: 'RelativeTargetDirectory', relativeTargetDir: conf.dir],
-                    [$class: 'CleanCheckout'],
-                    [$class: 'PruneStaleBranch']
+                    //[$class: 'CleanCheckout'],
+                    //[$class: 'PruneStaleBranch']
                 ],
                 userRemoteConfigs: [[
                     credentialsId:  gitCredentials,
