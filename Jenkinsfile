@@ -5,6 +5,7 @@
 
 String gitRepoUrl = 'git@github.com:phatblat/SwiftPM-Plugin.git'
 String gitCredentials = '6715cdce-69af-499f-a621-05488b298ae1'
+String gitRefspec = '+refs/heads/*:refs/remotes/origin/* +refs/pull/*:refs/remotes/origin/pr/*'
 
 node {
     stage('Clone') {
@@ -21,7 +22,7 @@ node {
                 ],
                 userRemoteConfigs: [[
                     credentialsId:  gitCredentials,
-                    refspec: "+refs/heads/*:refs/remotes/origin/* +refs/pull/*:refs/remotes/origin/pr/*",
+                    refspec: gitRefSpec,
                     url: gitRepoUrl
                 ]]
             ]
