@@ -9,7 +9,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath group: 'at.phatbl', name: 'swiftpm', version: '+'
+        classpath 'at.phatbl:swiftpm:+'
     }
 }
 
