@@ -8,7 +8,7 @@ import org.gradle.api.tasks.Exec
 //import at.phatbl.swiftpm.Constants.*
 
 open class DumpPackageTask : Exec() {
-    fun DumpPackageTask() {
+    init {
         description = "Prints parsed Package.swift as JSON"
         group = "SwiftPM"
     }
