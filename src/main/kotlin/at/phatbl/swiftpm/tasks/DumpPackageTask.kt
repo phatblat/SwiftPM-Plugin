@@ -11,5 +11,8 @@ open class DumpPackageTask : Exec() {
     init {
         description = "Prints parsed Package.swift as JSON"
         group = "SwiftPM"
+
+        val command = "swift package dump-package"
+        commandLine = command.split(" ")
     }
 }
