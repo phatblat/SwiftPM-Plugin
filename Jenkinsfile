@@ -39,6 +39,6 @@ node {
     }
     stage('Assemble') {
         sh './gradlew assemble'
-        archiveArtifacts 'build/libs/*.jar', fingerprint: true
+        archiveArtifacts artifacts: 'build/libs/*.jar', fingerprint: true
     }
 }
