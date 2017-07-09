@@ -38,6 +38,19 @@ node {
     stage('Check') {
         sh './gradlew build'
     }
+    stage('Example') {
+        dir('example') {
+            [
+                'swiftVersion',
+                'swiftpmVersion',
+                'swiftpmToolsVersion',
+                'swiftpmDescribe',
+                'swiftpmClean',
+            ].each {
+                sh "./gradlew ${it}"
+            }
+        }
+    }
     stage('Assemble') {
         sh './gradlew assemble'
     }
