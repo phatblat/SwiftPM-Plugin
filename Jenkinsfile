@@ -7,7 +7,7 @@ String gitRepoUrl = 'git@github.com:phatblat/SwiftPM-Plugin.git'
 String gitCredentials = '6715cdce-69af-499f-a621-05488b298ae1'
 
 node {
-    stage('Clone sources') {
+    stage('Clone') {
         step([$class: 'WsCleanup'])
         if (env.sha1) {
             // PRB needs custom refspec
