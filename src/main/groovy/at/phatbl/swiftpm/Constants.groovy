@@ -4,7 +4,7 @@ package at.phatbl.swiftpm
  * Created by phatblat on 6/13/17.
  */
 class Constants {
-    static String SWIFTPM_TASK_GROUP = "SwiftPM"
+    public static String SWIFTPM_TASK_GROUP = "SwiftPM"
 
     // SwiftPM task names
     static String SPM_TASK_PREFIX = 'swiftpm'

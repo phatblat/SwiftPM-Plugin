@@ -4,13 +4,12 @@ package at.phatbl.swiftpm.tasks
 //import at.phatbl.swiftpm.tasks.AbstractExecTask
 import org.gradle.api.tasks.Exec
 
-// TODO: Figure out how to import static members
-//import at.phatbl.swiftpm.Constants.*
+import at.phatbl.swiftpm.Constants.*
 
 open class DumpPackageTask : Exec() {
     init {
         description = "Prints parsed Package.swift as JSON"
-        group = "SwiftPM"
+        group = SWIFTPM_TASK_GROUP
 
         val command = "swift package dump-package"
         commandLine = command.split(" ")
