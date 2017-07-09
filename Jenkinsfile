@@ -45,6 +45,7 @@ node {
                 'swiftpmVersion',
                 'swiftpmToolsVersion',
                 'swiftpmDescribe',
+                'swiftpmDumpPackage',
                 'swiftpmClean',
             ].each {
                 sh "./gradlew ${it}"
