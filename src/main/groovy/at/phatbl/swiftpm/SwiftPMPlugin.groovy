@@ -13,6 +13,7 @@ class SwiftPMPlugin implements Plugin<Project> {
 
     Task clean
     Task describe
+    Task dumpPackage
     Task reset
     Task swiftVersion
     Task toolsVersion
@@ -25,6 +26,7 @@ class SwiftPMPlugin implements Plugin<Project> {
 
         clean = project.task TASK_CLEAN, type: CleanTask
         describe = project.task TASK_DESCRIBE, type: DescribeTask
+        dumpPackage = project.task TASK_DUMP_PACKAGE, type: DumpPackageTask
         reset = project.task TASK_RESET, type: ResetTask
         swiftVersion = project.task TASK_SWIFT_VERSION, type: SwiftVersionTask
         toolsVersion = project.task TASK_TOOLS_VERSION, type: ToolsVersionTask

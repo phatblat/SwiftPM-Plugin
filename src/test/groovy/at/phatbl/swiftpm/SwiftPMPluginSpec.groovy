@@ -36,6 +36,15 @@ class SwiftPMPluginSpec extends Specification {
         task instanceof DescribeTask
     }
 
+    def "has a dump package task"() {
+        when:
+        task = project.tasks.swiftpmDumpPackage
+
+        then:
+        task != null
+        task instanceof DumpPackageTask
+    }
+
     def "has a reset task"() {
         when:
         task = project.tasks.swiftpmReset
