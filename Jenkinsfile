@@ -22,7 +22,7 @@ node {
                 ],
                 userRemoteConfigs: [[
                     credentialsId:  gitCredentials,
-                    refspec: gitRefSpec,
+                    refspec: gitRefspec,
                     url: gitRepoUrl
                 ]]
             ]
