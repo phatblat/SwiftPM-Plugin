@@ -78,11 +78,10 @@ dependencies {
     }
 
     // Speck
-    testCompile "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
-    testCompile "org.jetbrains.kotlin:kotlin-test:$kotlinVersion"
-    testCompile 'org.jetbrains.spek:spek-api:1.1.2'
+    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
     testCompile "org.jetbrains.kotlin:kotlin-test:$kotlinVersion"
     testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion"
+    testCompile 'org.jetbrains.spek:spek-api:1.1.2'
 
     testCompile 'org.jetbrains.spek:spek-junit-platform-engine:1.1.2'
     testCompile "org.junit.platform:junit-platform-engine:$junitPlatformVersion"
