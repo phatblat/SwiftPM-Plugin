@@ -2,12 +2,15 @@ package at.phatbl.swiftpm.tasks
 
 import at.phatbl.swiftpm.Constants.Companion.SWIFTPM_TASK_GROUP
 
-open class DumpPackageTask : AbstractExecTask() {
+/**
+ * Deletes build artifacts.
+ */
+open class CleanTask : AbstractExecTask() {
     init {
-        description = "Prints parsed Package.swift as JSON"
+        description = "Deletes build artifacts."
         group = SWIFTPM_TASK_GROUP
 
-        val command = "swift package dump-package"
+        val command = "swift package clean"
         commandLine = command.split(" ")
     }
 }
