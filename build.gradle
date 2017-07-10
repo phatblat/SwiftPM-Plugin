@@ -96,16 +96,30 @@ dependencies {
 }
 
 // https://docs.gradle.org/4.0/release-notes.html#multiple-class-directories-for-a-single-source-set
+
 sourceSets {
     main {
-        groovy.outputDir = file "$buildDir/classes/groovy/main"
         // FIXME: Output still going to classes/java/main
         kotlin.outputDir = file "$buildDir/classes/kotlin/main"
     }
     test {
-        groovy.outputDir = file "$buildDir/classes/groovy/test"
         // FIXME: Output still going to classes/java/test
         kotlin.outputDir = file "$buildDir/classes/kotlin/test"
+    }
+}
+
+// Make kotlin casses visible while Groovy in compiling
+compileGroovy.classpath += files compileKotlin.destinationDir
+compileTestGroovy.classpath += files compileTestKotlin.destinationDir
+
+task showSourceSets {
+    doLast {
+        println "sourceSets.main.allSource.srcDirs"
+        sourceSets.main.allSource.srcDirs.each { println it }
+
+        ['kotlin', 'groovy', 'java'].each {
+            println "sourceSets.main.${it}.outputDir: ${sourceSets.main["${it}"].outputDir}"
+        }
     }
 }
 
