@@ -9,7 +9,7 @@ OPTIONS:
  */
 open class ToolsVersionTask : AbstractExecTask() {
     init {
-        description = "Shows tools version of the current package."
+        description = "Show tools version of the current package."
         command = "swift package tools-version"
     }
 }
