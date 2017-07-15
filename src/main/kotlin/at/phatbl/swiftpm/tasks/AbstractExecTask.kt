@@ -2,6 +2,7 @@ package at.phatbl.swiftpm.tasks
 
 import at.phatbl.swiftpm.Constants.Companion.SWIFTPM_TASK_GROUP
 import org.gradle.api.tasks.Exec
+import org.gradle.api.tasks.Internal
 
 /**
  * Base class which manages the PATH environment variable.
@@ -16,6 +17,7 @@ abstract class AbstractExecTask : Exec() {
     /**
      * String of commands to be executed by Gradle, split on space before being passed to commandLine.
      */
+    @Internal
     var command: String = ""
         set(value) {
             field = value
