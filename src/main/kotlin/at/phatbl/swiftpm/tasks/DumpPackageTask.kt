@@ -6,7 +6,6 @@ package at.phatbl.swiftpm.tasks
 open class DumpPackageTask : AbstractExecTask() {
     init {
         description = "Prints parsed Package.swift as JSON."
-
         command = "swift package dump-package"
     }
 }
