@@ -11,11 +11,11 @@ import kotlin.test.assertTrue
 object SwiftVersionTaskSpek: Spek({
     describe("swift version task") {
         val project = ProjectBuilder.builder().build()
-        val task = project.tasks.create(TASK_SWIFT_VERSION, CleanTask::class.java)
+        val task = project.tasks.create(TASK_SWIFT_VERSION, SwiftVersionTask::class.java)
 
         it("can be added to project") {
             assertNotNull(task)
-            assertTrue { task is CleanTask }
+            assertTrue { task is SwiftVersionTask }
         }
 
         it("has a tokenized command line") {
