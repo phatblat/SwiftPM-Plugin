@@ -8,7 +8,7 @@ import org.jetbrains.spek.api.dsl.*
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
-object DumpPackageTaskSpec: Spek({
+object DumpPackageTaskSpek: Spek({
     describe("dump package task") {
         val clazz: Class<DumpPackageTask> = DumpPackageTask::class.java
         var project: Project = ProjectBuilder.builder().build()
