@@ -1,5 +1,9 @@
 # SwiftPM Plugin
 
+[![Build Status](http://jenkins.log-g.co/buildStatus/icon?job=SwiftPM-Plugin)](http://jenkins.log-g.co/job/SwiftPM-Plugin/)
+[![codebeat badge](https://codebeat.co/badges/7fcaa41d-d366-4904-8b7c-05ec91aebb85)](https://codebeat.co/projects/github-com-phatblat-swiftpm-plugin-master)
+[![Kotlin 1.1.3](https://img.shields.io/badge/Kotlin-1.1.2-orange.svg?style=flat)](http://kotlinlang.org/)
+
 Gradle plugin for the [Swift Package Manager](https://github.com/apple/swift-package-manager).
 
 Note that only tools [version 4](https://github.com/apple/swift-package-manager/blob/master/Documentation/PackageDescriptionV4.md#packagedescription-api-version-4)

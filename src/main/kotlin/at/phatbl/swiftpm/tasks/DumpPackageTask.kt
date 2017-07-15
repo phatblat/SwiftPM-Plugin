@@ -1,18 +1,11 @@
 package at.phatbl.swiftpm.tasks
 
-// TODO: Figure out how to extend AbstractExecTask groovy class
-//import at.phatbl.swiftpm.tasks.AbstractExecTask
-import org.gradle.api.tasks.Exec
-
-// TODO: Figure out how to import static members
-//import at.phatbl.swiftpm.Constants.*
-
-open class DumpPackageTask : Exec() {
+/**
+ * Prints parsed Package.swift as JSON.
+ */
+open class DumpPackageTask : AbstractExecTask() {
     init {
-        description = "Prints parsed Package.swift as JSON"
-        group = "SwiftPM"
-
-        val command = "swift package dump-package"
-        commandLine = command.split(" ")
+        description = "Prints parsed Package.swift as JSON."
+        command = "swift package dump-package"
     }
 }
