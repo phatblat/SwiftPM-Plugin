@@ -35,7 +35,6 @@ buildscript {
 
 apply plugin: 'kotlin'
 apply plugin: 'org.jetbrains.kotlin.jvm'
-apply plugin: 'groovy'
 apply plugin: 'java-gradle-plugin'
 apply plugin: 'org.junit.platform.gradle.plugin'
 apply plugin: 'maven'
@@ -67,12 +66,6 @@ dependencies {
 
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlinVersion"
 
-    // Spock
-    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
-    testCompile 'org.spockframework:spock-core:1.1-groovy-2.4', {
-        exclude module: 'groovy-all'
-    }
-
     // Speck
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
     testCompile "org.jetbrains.kotlin:kotlin-test:$kotlinVersion"
@@ -101,9 +94,6 @@ compileKotlin {
     }
 }
 
-// Make kotlin casses visible while Groovy in compiling
-compileGroovy.classpath += files compileKotlin.destinationDir
-
 /* -------------------------------------------------------------------------- */
 // Testing
 /* -------------------------------------------------------------------------- */
@@ -113,9 +103,6 @@ compileTestKotlin {
         jvmTarget = "1.8"
     }
 }
-
-// Make kotlin casses visible while Groovy in compiling
-compileTestGroovy.classpath += files compileTestKotlin.destinationDir
 
 // org.junit.platform.gradle.plugin
 junitPlatform {
