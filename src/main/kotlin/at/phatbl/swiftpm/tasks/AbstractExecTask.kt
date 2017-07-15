@@ -1,5 +1,6 @@
 package at.phatbl.swiftpm.tasks
 
+import at.phatbl.swiftpm.Constants.Companion.SWIFTPM_TASK_GROUP
 import org.gradle.api.tasks.Exec
 
 /**
@@ -13,6 +14,8 @@ abstract class AbstractExecTask : Exec() {
     }
 
     init {
+        group = SWIFTPM_TASK_GROUP
+
         environment("PATH", "${pathAdditions}:${System.getenv("PATH")}")
         doFirst {
             project.logger.info("System.env.PATH: ${System.getenv("PATH")}")

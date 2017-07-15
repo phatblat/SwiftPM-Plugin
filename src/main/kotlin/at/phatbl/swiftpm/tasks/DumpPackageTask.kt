@@ -1,11 +1,11 @@
 package at.phatbl.swiftpm.tasks
 
-import at.phatbl.swiftpm.Constants.Companion.SWIFTPM_TASK_GROUP
-
+/**
+ * Prints parsed Package.swift as JSON.
+ */
 open class DumpPackageTask : AbstractExecTask() {
     init {
-        description = "Prints parsed Package.swift as JSON"
-        group = SWIFTPM_TASK_GROUP
+        description = "Prints parsed Package.swift as JSON."
 
         val command = "swift package dump-package"
         commandLine = command.split(" ")
