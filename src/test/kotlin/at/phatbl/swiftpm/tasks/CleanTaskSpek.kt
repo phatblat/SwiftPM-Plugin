@@ -1,7 +1,7 @@
 package at.phatbl.swiftpm.tasks
 
+import at.phatbl.swiftpm.Constants.Companion.TASK_CLEAN
 import org.gradle.api.Project
-import org.gradle.api.Task
 import org.gradle.testfixtures.ProjectBuilder
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.*
@@ -16,7 +16,7 @@ object CleanTaskSpek: Spek({
 
         beforeEachTest {
             project = ProjectBuilder.builder().build()
-            task = project!!.tasks.create("swiftpmClean", clazz)
+            task = project!!.tasks.create(TASK_CLEAN, clazz)
         }
 
         it("can be added to project") {
