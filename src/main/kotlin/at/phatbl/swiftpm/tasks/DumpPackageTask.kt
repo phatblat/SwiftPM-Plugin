@@ -7,7 +7,6 @@ open class DumpPackageTask : AbstractExecTask() {
     init {
         description = "Prints parsed Package.swift as JSON."
 
-        val command = "swift package dump-package"
-        commandLine = command.split(" ")
+        command = "swift package dump-package"
     }
 }

@@ -9,7 +9,6 @@ open class CleanTask : AbstractExecTask() {
     init {
         description = "Deletes build artifacts."
 
-        val command = "swift package clean"
-        commandLine = command.split(" ")
+        command = "swift package clean"
     }
 }

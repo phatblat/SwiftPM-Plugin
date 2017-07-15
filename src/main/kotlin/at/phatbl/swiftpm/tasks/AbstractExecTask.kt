@@ -13,6 +13,15 @@ abstract class AbstractExecTask : Exec() {
         const val pathAdditions = "./bin:/usr/local/bin"
     }
 
+    /**
+     * String of commands to be executed by Gradle, split on space before being passed to commandLine.
+     */
+    var command: String = ""
+        set(value) {
+            field = value
+            commandLine = value.split(" ")
+        }
+
     init {
         group = SWIFTPM_TASK_GROUP
 
