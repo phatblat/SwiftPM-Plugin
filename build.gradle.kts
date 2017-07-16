@@ -34,15 +34,13 @@ buildscript {
 //    }
     repositories {
         maven { url = uri("https://repo.gradle.org/gradle/repo") }
-/*        maven { url = uri("https://plugins.gradle.org/m2/") }*/
+//        maven { url = uri("https://plugins.gradle.org/m2/") }
 //        jcenter()
     }
     dependencies {
         classpath(kotlin("gradle-plugin", kotlinVersion))
 //        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
         classpath("org.junit.platform:junit-platform-gradle-plugin:$junitPlatformVersion")
-
-//        Generating JAR file 'gradle-script-kotlin-extensions-0.9.0-4.0.jar'
     }
 }
 
@@ -75,12 +73,12 @@ tasks {
         gradleVersion = "4.0.1"
 //        distributionType = org.gradle.api.tasks.wrapper.Wrapper.DistributionType.ALL
         /*
-         https\://services.gradle.org/distributions/gradle-4.0.1-all.zip
-         https\://repo.gradle.org/gradle/dist-snapshots/gradle-kotlin-dsl-4.1-20170622074548+0000-all.zip
-         https\://repo.gradle.org/gradle/dist-snapshots/gradle-kotlin-dsl-4.1-20170713163104+0000-bin.zip
-         https://repo.gradle.org/gradle/dist-snapshots/gradle-script-kotlin-4.1-20170615174816+0000-bin.zip
+         https://services.gradle.org/distributions/gradle-4.0.1-all.zip
+         https://repo.gradle.org/gradle/dist-snapshots/gradle-kotlin-dsl-4.1-20170622074548+0000-all.zip
+         https://repo.gradle.org/gradle/dist-snapshots/gradle-kotlin-dsl-4.1-20170713163104+0000-all.zip
+         https://repo.gradle.org/gradle/dist-snapshots/gradle-script-kotlin-4.1-20170615174816+0000-all.zip
         */
-        distributionUrl = "https://repo.gradle.org/gradle/dist-snapshots/gradle-script-kotlin-4.1-20170615174816+0000-bin.zip"
+        distributionUrl = "https://repo.gradle.org/gradle/dist-snapshots/gradle-script-kotlin-4.1-20170615174816+0000-all.zip"
 
         finalizedBy(removeBatchFile)
     }
@@ -92,6 +90,7 @@ tasks {
 
 repositories {
     jcenter()
+    maven { url = uri("https://repo.gradle.org/gradle/repo") }
     maven { url = uri("http://dl.bintray.com/jetbrains/spek") }
 }
 
