@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 /**
  * build.gradle.kts
  * SwiftPM-Plugin
@@ -79,6 +81,18 @@ tasks {
 
         finalizedBy(removeBatchFile)
     }
+
+    "compileKotlin"(KotlinCompile::class) {
+        kotlinOptions {
+            jvmTarget = "1.8"
+        }
+    }
+
+    "compileTestKotlin"(KotlinCompile::class) {
+        kotlinOptions {
+            jvmTarget = "1.8"
+        }
+    }
 }
 
 /* -------------------------------------------------------------------------- */
@@ -123,21 +137,9 @@ configure<JavaPluginConvention> {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
-//compileKotlin {
-//    kotlinOptions {
-//        jvmTarget = "1.8"
-//    }
-//}
-
 /* -------------------------------------------------------------------------- */
 // Testing
 /* -------------------------------------------------------------------------- */
-
-//compileTestKotlin {
-//    kotlinOptions {
-//        jvmTarget = "1.8"
-//    }
-//}
 
 // org.junit.platform.gradle.plugin
 //junitPlatform {
