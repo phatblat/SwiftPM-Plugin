@@ -1,4 +1,4 @@
-/*
+/**
  * Jenkinsfile
  * SwiftPM-Plugin
  */
@@ -38,7 +38,6 @@ node {
     stage('Check') {
         sh './gradlew check'
     }
-/*
     stage('Example') {
         dir('example') {
             [
@@ -53,7 +52,6 @@ node {
             }
         }
     }
-*/
     stage('Assemble') {
         sh './gradlew assemble'
     }
