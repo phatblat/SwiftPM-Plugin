@@ -1,3 +1,4 @@
+import org.gradle.api.tasks.wrapper.Wrapper.DistributionType
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 /**
@@ -64,7 +65,6 @@ val removeBatchFile by tasks.creating(Delete::class) {
     delete("gradlew.bat")
 }
 
-//val wrapper by tasks.getting(Wrapper::class)
 tasks {
     /**
      *
@@ -75,8 +75,7 @@ tasks {
      */
     "wrapper"(Wrapper::class) {
         gradleVersion = "4.0.1"
-//import org.gradle.api.tasks.wrapper.Wrapper.DistributionType
-//        distributionType = org.gradle.api.tasks.wrapper.Wrapper.DistributionType.ALL
+        distributionType = DistributionType.ALL
         distributionUrl = "https://repo.gradle.org/gradle/dist-snapshots/gradle-script-kotlin-4.1-20170615174816+0000-all.zip"
 
         finalizedBy(removeBatchFile)
