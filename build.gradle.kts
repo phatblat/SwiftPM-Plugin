@@ -33,20 +33,29 @@ buildscript {
 //        junit4Version        = "4.12"
 //    }
     repositories {
-/*        maven { url "https://plugins.gradle.org/m2/" }*/
-        jcenter()
+        maven { url = uri("https://repo.gradle.org/gradle/repo") }
+/*        maven { url = uri("https://plugins.gradle.org/m2/") }*/
+//        jcenter()
     }
     dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
+        classpath(kotlin("gradle-plugin", kotlinVersion))
+//        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
         classpath("org.junit.platform:junit-platform-gradle-plugin:$junitPlatformVersion")
+
+//        Generating JAR file 'gradle-script-kotlin-extensions-0.9.0-4.0.jar'
     }
+}
+
+plugins {
+//    `kotlin-dsl`
+    `java-gradle-plugin`
 }
 
 apply {
     plugin("kotlin")
     plugin("org.jetbrains.kotlin.jvm")
     plugin("java-gradle-plugin")
-    plugin("org.junit.platform.gradle.plugin")
+    plugin("org.junit.platform.gradle.plugin") // junit-platform-gradle-plugin
     plugin("maven")
     plugin("idea")
 }
@@ -90,6 +99,7 @@ repositories {
 dependencies {
     compile(gradleScriptKotlinApi())
     compile(kotlin("stdlib", kotlinVersion))
+//    compile("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
 //    compile("org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlinVersion")
 
     // Speck
@@ -158,18 +168,22 @@ dependencies {
 //    pluginClass =  name + "Plugin"
 //}
 
+val artifactName = name.toLowerCase()
+val javaPackage = "$group.$artifactName"
+val pluginClass =  "${name}Plugin"
+
 // at.phatbl.swiftpm-1.0.0.jar
 //archivesBaseName = javaPackage
 
 // java-gradle-plugin
-//gradlePlugin {
-//    plugins {
-//        swiftpm {
-//            id = artifactName
-//            implementationClass = "$javaPackage.$pluginClass"
-//        }
-//    }
-//}
+configure<GradlePluginDevelopmentExtension> {
+    plugins {
+        create("swiftpm") {
+            id = artifactName
+            implementationClass = "$javaPackage.$pluginClass"
+        }
+    }
+}
 
 // maven
 //uploadArchives {
