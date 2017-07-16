@@ -38,6 +38,7 @@ node {
     stage('Check') {
         sh './gradlew build'
     }
+/*
     stage('Example') {
         dir('example') {
             [
@@ -52,6 +53,7 @@ node {
             }
         }
     }
+*/
     stage('Assemble') {
         sh './gradlew assemble'
     }
