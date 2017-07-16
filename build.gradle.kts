@@ -1,10 +1,10 @@
-import org.gradle.api.tasks.wrapper.Wrapper.DistributionType
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 /**
  * build.gradle.kts
  * SwiftPM-Plugin
  */
+
+import org.gradle.api.tasks.wrapper.Wrapper.DistributionType
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 /* -------------------------------------------------------------------------- */
 // Properties
