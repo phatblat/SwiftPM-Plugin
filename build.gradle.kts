@@ -95,6 +95,12 @@ tasks {
             jvmTarget = "1.8"
         }
     }
+
+    "test"(Test::class) {
+        testLogging {
+            events("started", "passed", "failed")
+        }
+    }
 }
 
 /* -------------------------------------------------------------------------- */
@@ -169,12 +175,6 @@ junitPlatformExtension.closureOf<JUnitPlatformExtension> {
 //        engines.exclude("spek")
     }
 }
-
-//test {
-//    testLogging {
-//        //events "started", "passed", "failed"
-//    }
-//}
 
 /* -------------------------------------------------------------------------- */
 // Deployment
