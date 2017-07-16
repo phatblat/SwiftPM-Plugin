@@ -46,7 +46,7 @@ buildscript {
 
 plugins {
 //    `kotlin-dsl`
-    `java-gradle-plugin`
+//    `java-gradle-plugin`
 }
 
 apply {
@@ -58,26 +58,23 @@ apply {
     plugin("idea")
 }
 
-/*task removeBatchFile(type: Delete) {
-    delete "gradlew.bat"
-}*/
 val removeBatchFile by tasks.creating(Delete::class) {
     delete("gradlew.bat")
 }
 
-//import org.gradle.api.tasks.wrapper.Wrapper.DistributionType
 //val wrapper by tasks.getting(Wrapper::class)
 tasks {
-//with(wrapper) {
+    /**
+     *
+     * https://services.gradle.org/distributions/gradle-4.0.1-all.zip
+     * https://repo.gradle.org/gradle/dist-snapshots/gradle-kotlin-dsl-4.1-20170622074548+0000-all.zip
+     * https://repo.gradle.org/gradle/dist-snapshots/gradle-kotlin-dsl-4.1-20170713163104+0000-all.zip
+     * https://repo.gradle.org/gradle/dist-snapshots/gradle-script-kotlin-4.1-20170615174816+0000-all.zip
+     */
     "wrapper"(Wrapper::class) {
         gradleVersion = "4.0.1"
+//import org.gradle.api.tasks.wrapper.Wrapper.DistributionType
 //        distributionType = org.gradle.api.tasks.wrapper.Wrapper.DistributionType.ALL
-        /*
-         https://services.gradle.org/distributions/gradle-4.0.1-all.zip
-         https://repo.gradle.org/gradle/dist-snapshots/gradle-kotlin-dsl-4.1-20170622074548+0000-all.zip
-         https://repo.gradle.org/gradle/dist-snapshots/gradle-kotlin-dsl-4.1-20170713163104+0000-all.zip
-         https://repo.gradle.org/gradle/dist-snapshots/gradle-script-kotlin-4.1-20170615174816+0000-all.zip
-        */
         distributionUrl = "https://repo.gradle.org/gradle/dist-snapshots/gradle-script-kotlin-4.1-20170615174816+0000-all.zip"
 
         finalizedBy(removeBatchFile)
@@ -120,10 +117,12 @@ dependencies {
 //    testRuntime("org.junit.vintage:junit-vintage-engine:$junitVintageVersion")
 }
 
-//java {
-//    sourceCompatibility = JavaVersion.VERSION_1_8
-//    targetCompatibility = JavaVersion.VERSION_1_8
-//}
+// java
+configure<JavaPluginConvention> {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
 //compileKotlin {
 //    kotlinOptions {
 //        jvmTarget = "1.8"
