@@ -5,6 +5,9 @@
 
 import org.gradle.api.tasks.wrapper.Wrapper.DistributionType
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.junit.platform.gradle.plugin.EnginesExtension
+import org.junit.platform.gradle.plugin.FiltersExtension
+import org.junit.platform.gradle.plugin.JUnitPlatformExtension
 
 /* -------------------------------------------------------------------------- */
 // Properties
@@ -141,15 +144,31 @@ configure<JavaPluginConvention> {
 /* -------------------------------------------------------------------------- */
 
 // org.junit.platform.gradle.plugin
+configure<JUnitPlatformExtension> {
 //junitPlatform {
-//    platformVersion junitPlatformVersion
+    platformVersion = junitPlatformVersion
 //    filters {
 //        engines {
 //            include "spek", "junit-jupiter", "junit-vintage"
 //        }
 //        includeClassNamePatterns "^.*Tests?$", ".*Spec", ".*Spek"
 //    }
-//}
+}
+val junitPlatformExtension = project.extensions.getByName("junitPlatform") as JUnitPlatformExtension
+//junitPlatformExtension.invokeMethod("filters", {
+//    includeClassNamePatterns = listOf("^.*Tests?$", ".*Spec", ".*Spek")
+//})
+
+junitPlatformExtension.closureOf<JUnitPlatformExtension> {
+    val filter = extensions.getByName("filter") as FiltersExtension
+    filter.includeClassNamePatterns("^.*Tests?$", ".*Spec", ".*Spek")
+
+    filter.closureOf<FiltersExtension> {
+        val engines = extensions.getByName("engines") as EnginesExtension
+        engines.include("spek", "junit-jupiter", "junit-vintage")
+//        engines.exclude("spek")
+    }
+}
 
 //test {
 //    testLogging {
