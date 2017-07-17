@@ -51,11 +51,13 @@ buildscript {
 }
 
 plugins {
+    base
 //    `kotlin-dsl`
 //    `java-gradle-plugin`
 }
 
 apply {
+    plugin("base")
     plugin("kotlin")
     plugin("org.jetbrains.kotlin.jvm")
     plugin("java-gradle-plugin")
@@ -84,22 +86,16 @@ tasks {
         finalizedBy(removeBatchFile)
     }
 
-    "compileKotlin"(KotlinCompile::class) {
-        kotlinOptions {
-            jvmTarget = "1.8"
-        }
-    }
-
-    "compileTestKotlin"(KotlinCompile::class) {
-        kotlinOptions {
-            jvmTarget = "1.8"
-        }
-    }
-
     "test"(Test::class) {
         testLogging {
             events("started", "passed", "failed")
         }
+    }
+}
+
+tasks.withType<KotlinCompile> {
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 }
 
@@ -179,12 +175,6 @@ junitPlatformExtension.closureOf<JUnitPlatformExtension> {
 /* -------------------------------------------------------------------------- */
 // Deployment
 /* -------------------------------------------------------------------------- */
-
-//ext {
-//    artifactName = name.toLowerCase()
-//    javaPackage = group + "." + artifactName
-//    pluginClass =  name + "Plugin"
-//}
 
 val artifactName = name.toLowerCase()
 val javaPackage = "$group.$artifactName"
