@@ -4,6 +4,9 @@
  */
 
 import org.gradle.api.tasks.wrapper.Wrapper.DistributionType
+import org.gradle.plugins.ide.idea.model.IdeaLanguageLevel
+import org.gradle.plugins.ide.idea.model.IdeaModel
+import org.gradle.plugins.ide.idea.model.IdeaModule
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.junit.platform.gradle.plugin.EnginesExtension
 import org.junit.platform.gradle.plugin.FiltersExtension
@@ -196,12 +199,12 @@ configure<GradlePluginDevelopmentExtension> {
 /* -------------------------------------------------------------------------- */
 
 // IntelliJ IDEA project generation
-//idea {
-//    project {
-//        languageLevel = JavaVersion.VERSION_1_8
-//    }
-//    module {
-//        downloadJavadoc = true // defaults to false
-//        downloadSources = true
-//    }
-//}
+configure<IdeaModel> {
+    project {
+        languageLevel = IdeaLanguageLevel(JavaVersion.VERSION_1_8)
+    }
+    module {
+        isDownloadJavadoc = true // defaults to false
+        isDownloadSources = true
+    }
+}
