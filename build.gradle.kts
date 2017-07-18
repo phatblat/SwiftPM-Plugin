@@ -147,20 +147,9 @@ configure<JavaPluginConvention> {
 
 // org.junit.platform.gradle.plugin
 configure<JUnitPlatformExtension> {
-//junitPlatform {
     platformVersion = junitPlatformVersion
-//    filters {
-//        engines {
-//            include "spek", "junit-jupiter", "junit-vintage"
-//        }
-//        includeClassNamePatterns "^.*Tests?$", ".*Spec", ".*Spek"
-//    }
 }
 val junitPlatformExtension = project.extensions.getByName("junitPlatform") as JUnitPlatformExtension
-//junitPlatformExtension.invokeMethod("filters", {
-//    includeClassNamePatterns = listOf("^.*Tests?$", ".*Spec", ".*Spek")
-//})
-
 junitPlatformExtension.closureOf<JUnitPlatformExtension> {
     val filter = extensions.getByName("filter") as FiltersExtension
     filter.includeClassNamePatterns("^.*Tests?$", ".*Spec", ".*Spek")
@@ -168,7 +157,6 @@ junitPlatformExtension.closureOf<JUnitPlatformExtension> {
     filter.closureOf<FiltersExtension> {
         val engines = extensions.getByName("engines") as EnginesExtension
         engines.include("spek", "junit-jupiter", "junit-vintage")
-//        engines.exclude("spek")
     }
 }
 
@@ -180,8 +168,10 @@ val artifactName = name.toLowerCase()
 val javaPackage = "$group.$artifactName"
 val pluginClass =  "${name}Plugin"
 
-// at.phatbl.swiftpm-1.0.0.jar
-//archivesBaseName = javaPackage
+configure<BasePluginConvention> {
+    // at.phatbl.swiftpm-1.0.0.jar
+    archivesBaseName = javaPackage
+}
 
 // java-gradle-plugin
 configure<GradlePluginDevelopmentExtension> {
