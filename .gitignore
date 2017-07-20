@@ -5,6 +5,9 @@
 build/
 gradlew.bat
 
+# Kotlin
+out/
+
 # Xcode
 *.xccheckout
 *.xcscmblueprint
@@ -18,3 +21,4 @@ bin/
 # IntelliJ IDEA
 .idea/
 !.idea/runConfigurations/
+

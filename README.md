@@ -47,7 +47,7 @@ This repo is licensed under the MIT License. See the [LICENSE](LICENSE.md) file 
 
 # Gradle Version
 
-The build script for this project uses Gradle Kotlin DSL (version 0.10.0?). The included Gradle wrapper was set to this pre-release version using the following command:
+The build script for this project uses Gradle Kotlin DSL (version 0.10.3+). The included Gradle wrapper was set to this pre-release version using the following command:
 
 ```
 gradle wrapper --gradle-distribution-url https://repo.gradle.org/gradle/dist-snapshots/ggradle-kotlin-dsl-4.1-20170717152239+0000-all.zip
