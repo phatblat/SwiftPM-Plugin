@@ -5,14 +5,20 @@
 build/
 gradlew.bat
 
+# Kotlin
+out/
+
 # Xcode
 *.xccheckout
 *.xcscmblueprint
 xcuserdata/
 
-.idea/
 Carthage/
 Pods/
 .rubygems/
 bin/
+
+# IntelliJ IDEA
+.idea/
+!.idea/runConfigurations/
 
