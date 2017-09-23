@@ -38,7 +38,7 @@ buildscript {
         maven { url = uri("https://repo.gradle.org/gradle/repo") } // gradleScriptKotlin()
     }
     dependencies {
-        classpath(kotlinModule("gradle-plugin", kotlinVersion))
+        classpath(kotlin("gradle-plugin", kotlinVersion))
         classpath("org.junit.platform:junit-platform-gradle-plugin:$junitPlatformVersion")
     }
 }
