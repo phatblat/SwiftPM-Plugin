@@ -92,8 +92,7 @@ repositories {
 
 // In this section you declare the dependencies for your production and test code
 dependencies {
-    compile(gradleScriptKotlinApi())
-//    compile(gradleKotlinDsl())
+    compile(gradleKotlinDsl())
     compile(kotlin("stdlib", kotlinVersion))
 //    compile("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
 //    compile("org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlinVersion")
