@@ -25,15 +25,15 @@ version = "0.1.0"
 
 val kotlinVersion: String by extra
 println("kotlinVersion: $kotlinVersion")
-val spekVersion = "1.1.2"
+val spekVersion = "1.1.5"
 val junitPlatformVersion: String by extra
-val junitJupiterVersion  = "5.0.0-M4"
-val junitVintageVersion  = "4.12.0-M4"
+val junitJupiterVersion  = "5.0.0"
+val junitVintageVersion  = "4.12.0"
 val junit4Version        = "4.12"
 
 buildscript {
     val kotlinVersion by extra("1.1.4-3")
-    val junitPlatformVersion by extra("1.0.0-M4")
+    val junitPlatformVersion by extra("1.0.0")
     repositories {
         maven { url = uri("https://repo.gradle.org/gradle/repo") } // gradleScriptKotlin()
     }
