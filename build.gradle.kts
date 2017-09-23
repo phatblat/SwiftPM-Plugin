@@ -32,7 +32,7 @@ val junitVintageVersion  = "4.12.0-M4"
 val junit4Version        = "4.12"
 
 buildscript {
-    val kotlinVersion by extra("1.1.3")
+    val kotlinVersion by extra("1.1.4-3")
     val junitPlatformVersion by extra("1.0.0-M4")
     repositories {
         maven { url = uri("https://repo.gradle.org/gradle/repo") } // gradleScriptKotlin()
@@ -44,7 +44,7 @@ buildscript {
 }
 
 plugins {
-   `kotlin-dsl`
+   `kotlin-dsl` // 0.11.1
 //    base
 //    `java-gradle-plugin`
 }
