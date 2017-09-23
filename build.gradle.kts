@@ -58,28 +58,12 @@ apply {
     plugin("idea")
 }
 
-val removeBatchFile by tasks.creating(Delete::class) {
-    delete("gradlew.bat")
-}
+val removeBatchFile by tasks.creating(Delete::class) { delete("gradlew.bat") }
 
 tasks {
     "wrapper"(Wrapper::class) {
-        // These are ignored when using distributionUrl
-        gradleVersion = "4.1"
-//        distributionType = DistributionType.ALL
-
-        // Distributions
-        val distributionBase = "https://repo.gradle.org/gradle"
-        val releaseDistributionBase = "$distributionBase/distributions"
-        val snapshotDistributionBase = "$distributionBase/dist-snapshots"
-        val gradle_4_0_1 by extra("$releaseDistributionBase/gradle-4.0.1-all.zip")
-        val gradleScriptKotlin by extra("$snapshotDistributionBase/gradle-script-kotlin-4.1-20170615174816+0000-all.zip")
-        val gradleKotlinDsl_0_10_2 by extra("$snapshotDistributionBase/gradle-kotlin-dsl-4.1-20170712173431+0000-all.zip")
-        val gradleKotlinDsl_0_10_3 by extra("$snapshotDistributionBase/gradle-kotlin-dsl-4.1-20170713163104+0000-all.zip")
-        val gradleKotlinDsl_HEAD by extra("$snapshotDistributionBase/gradle-kotlin-dsl-4.1-20170717152239+0000-all.zip")
-
-        distributionUrl = gradleKotlinDsl_HEAD
-
+        gradleVersion = "4.2"
+        distributionType = DistributionType.ALL
         finalizedBy(removeBatchFile)
     }
 
