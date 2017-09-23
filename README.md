@@ -2,7 +2,7 @@
 
 [![Build Status](http://jenkins.log-g.co/buildStatus/icon?job=SwiftPM-Plugin)](http://jenkins.log-g.co/job/SwiftPM-Plugin/)
 [![codebeat badge](https://codebeat.co/badges/7fcaa41d-d366-4904-8b7c-05ec91aebb85)](https://codebeat.co/projects/github-com-phatblat-swiftpm-plugin-master)
-[![Kotlin 1.1.3](https://img.shields.io/badge/Kotlin-1.1.3-orange.svg?style=flat)](http://kotlinlang.org/)
+[![Kotlin 1.1.4-3](https://img.shields.io/badge/Kotlin-1.1.4-orange.svg?style=flat)](http://kotlinlang.org/)
 
 Gradle plugin for the [Swift Package Manager](https://github.com/apple/swift-package-manager).
 
@@ -47,8 +47,4 @@ This repo is licensed under the MIT License. See the [LICENSE](LICENSE.md) file 
 
 # Gradle Version
 
-The build script for this project uses Gradle Kotlin DSL (version 0.10.3+). The included Gradle wrapper was set to this pre-release version using the following command:
-
-```
-gradle wrapper --gradle-distribution-url https://repo.gradle.org/gradle/dist-snapshots/ggradle-kotlin-dsl-4.1-20170717152239+0000-all.zip
-```
+The build script for this project uses Gradle 4.2 and Kotlin DSL version 0.11.1.
