@@ -35,7 +35,7 @@ buildscript {
     val kotlinVersion by extra("1.1.4-3")
     val junitPlatformVersion by extra("1.0.0")
     repositories {
-        maven ("https://repo.gradle.org/gradle/repo") // gradleScriptKotlin()
+        maven("https://repo.gradle.org/gradle/repo") // gradleKotlinDsl()
     }
     dependencies {
         classpath(kotlin("gradle-plugin", kotlinVersion))
@@ -86,8 +86,8 @@ tasks.withType<KotlinCompile> {
 
 repositories {
     jcenter()
-    maven { url = uri("https://repo.gradle.org/gradle/repo") }
-    maven { url = uri("http://dl.bintray.com/jetbrains/spek") }
+    maven("https://repo.gradle.org/gradle/repo")
+    maven("http://dl.bintray.com/jetbrains/spek")
 }
 
 // In this section you declare the dependencies for your production and test code
