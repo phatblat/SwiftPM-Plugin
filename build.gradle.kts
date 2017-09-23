@@ -35,7 +35,7 @@ buildscript {
     val kotlinVersion by extra("1.1.4-3")
     val junitPlatformVersion by extra("1.0.0")
     repositories {
-        maven { url = uri("https://repo.gradle.org/gradle/repo") } // gradleScriptKotlin()
+        maven ("https://repo.gradle.org/gradle/repo") // gradleScriptKotlin()
     }
     dependencies {
         classpath(kotlin("gradle-plugin", kotlinVersion))
