@@ -15,15 +15,10 @@ buildscript {
 
 apply plugin: 'swiftpm'
 
-task removeBatchFile(type: Delete) {
-    delete 'gradlew.bat'
-}
+task removeBatchFile(type: Delete) { delete 'gradlew.bat' }
 
 wrapper {
-    gradleVersion = '4.0'
+    gradleVersion = '4.2'
     distributionType = 'ALL'
-    distributionUrl = "https://repo.gradle.org/gradle/dist-snapshots/gradle-script-kotlin-4.1-20170615174816+0000-all.zip"
-
     finalizedBy removeBatchFile
 }
-

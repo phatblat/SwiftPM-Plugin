@@ -25,26 +25,26 @@ version = "0.1.0"
 
 val kotlinVersion: String by extra
 println("kotlinVersion: $kotlinVersion")
-val spekVersion = "1.1.2"
+val spekVersion = "1.1.5"
 val junitPlatformVersion: String by extra
-val junitJupiterVersion  = "5.0.0-M4"
-val junitVintageVersion  = "4.12.0-M4"
+val junitJupiterVersion  = "5.0.0"
+val junitVintageVersion  = "4.12.0"
 val junit4Version        = "4.12"
 
 buildscript {
-    val kotlinVersion by extra("1.1.3")
-    val junitPlatformVersion by extra("1.0.0-M4")
+    val kotlinVersion by extra("1.1.4-3")
+    val junitPlatformVersion by extra("1.0.0")
     repositories {
-        maven { url = uri("https://repo.gradle.org/gradle/repo") } // gradleScriptKotlin()
+        maven("https://repo.gradle.org/gradle/repo") // gradleKotlinDsl()
     }
     dependencies {
-        classpath(kotlinModule("gradle-plugin", kotlinVersion))
+        classpath(kotlin("gradle-plugin", kotlinVersion))
         classpath("org.junit.platform:junit-platform-gradle-plugin:$junitPlatformVersion")
     }
 }
 
 plugins {
-   `kotlin-dsl`
+   `kotlin-dsl` // 0.11.1
 //    base
 //    `java-gradle-plugin`
 }
@@ -58,28 +58,12 @@ apply {
     plugin("idea")
 }
 
-val removeBatchFile by tasks.creating(Delete::class) {
-    delete("gradlew.bat")
-}
+val removeBatchFile by tasks.creating(Delete::class) { delete("gradlew.bat") }
 
 tasks {
     "wrapper"(Wrapper::class) {
-        // These are ignored when using distributionUrl
-        gradleVersion = "4.1"
-//        distributionType = DistributionType.ALL
-
-        // Distributions
-        val distributionBase = "https://repo.gradle.org/gradle"
-        val releaseDistributionBase = "$distributionBase/distributions"
-        val snapshotDistributionBase = "$distributionBase/dist-snapshots"
-        val gradle_4_0_1 by extra("$releaseDistributionBase/gradle-4.0.1-all.zip")
-        val gradleScriptKotlin by extra("$snapshotDistributionBase/gradle-script-kotlin-4.1-20170615174816+0000-all.zip")
-        val gradleKotlinDsl_0_10_2 by extra("$snapshotDistributionBase/gradle-kotlin-dsl-4.1-20170712173431+0000-all.zip")
-        val gradleKotlinDsl_0_10_3 by extra("$snapshotDistributionBase/gradle-kotlin-dsl-4.1-20170713163104+0000-all.zip")
-        val gradleKotlinDsl_HEAD by extra("$snapshotDistributionBase/gradle-kotlin-dsl-4.1-20170717152239+0000-all.zip")
-
-        distributionUrl = gradleKotlinDsl_HEAD
-
+        gradleVersion = "4.2"
+        distributionType = DistributionType.ALL
         finalizedBy(removeBatchFile)
     }
 
@@ -102,14 +86,13 @@ tasks.withType<KotlinCompile> {
 
 repositories {
     jcenter()
-    maven { url = uri("https://repo.gradle.org/gradle/repo") }
-    maven { url = uri("http://dl.bintray.com/jetbrains/spek") }
+    maven("https://repo.gradle.org/gradle/repo")
+    maven("http://dl.bintray.com/jetbrains/spek")
 }
 
 // In this section you declare the dependencies for your production and test code
 dependencies {
-    compile(gradleScriptKotlinApi())
-//    compile(gradleKotlinDsl())
+    compile(gradleKotlinDsl())
     compile(kotlin("stdlib", kotlinVersion))
 //    compile("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
 //    compile("org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlinVersion")
