@@ -32,7 +32,7 @@ val junitVintageVersion  = "4.12.0"
 val junit4Version        = "4.12"
 
 buildscript {
-    val kotlinVersion by extra("1.1.4-3")
+    val kotlinVersion by extra("1.1.51")
     val junitPlatformVersion by extra("1.0.0")
     repositories {
         maven("https://repo.gradle.org/gradle/repo") // gradleKotlinDsl()
