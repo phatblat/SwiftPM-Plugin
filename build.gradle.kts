@@ -126,18 +126,13 @@ configure<JavaPluginConvention> {
 // Testing
 /* -------------------------------------------------------------------------- */
 
-// org.junit.platform.gradle.plugin
-configure<JUnitPlatformExtension> {
+junitPlatform {
     platformVersion = junitPlatformVersion
-}
-val junitPlatformExtension = project.extensions.getByName("junitPlatform") as JUnitPlatformExtension
-junitPlatformExtension.closureOf<JUnitPlatformExtension> {
-    val filter = extensions.getByName("filter") as FiltersExtension
-    filter.includeClassNamePatterns("^.*Tests?$", ".*Spec", ".*Spek")
-
-    filter.closureOf<FiltersExtension> {
-        val engines = extensions.getByName("engines") as EnginesExtension
-        engines.include("spek", "junit-jupiter", "junit-vintage")
+    filters {
+        includeClassNamePatterns("^.*Tests?$", ".*Spec", ".*Spek")
+        engines {
+            include("spek", "junit-jupiter", "junit-vintage")
+        }
     }
 }
 
@@ -189,3 +184,19 @@ configure<IdeaModel> {
         isDownloadSources = true
     }
 }
+
+/* -------------------------------------------------------------------------- */
+// Groovy-like DSL
+/* -------------------------------------------------------------------------- */
+
+/**
+ * Retrieves the [junitPlatform][org.junit.platform.gradle.plugin.JUnitPlatformExtension] project extension.
+ */
+val Project.`junitPlatform`: org.junit.platform.gradle.plugin.JUnitPlatformExtension get() =
+    extensions.getByName("junitPlatform") as org.junit.platform.gradle.plugin.JUnitPlatformExtension
+
+/**
+ * Configures the [junitPlatform][org.junit.platform.gradle.plugin.JUnitPlatformExtension] project extension.
+ */
+fun Project.`junitPlatform`(configure: org.junit.platform.gradle.plugin.JUnitPlatformExtension.() -> Unit) =
+        extensions.configure("junitPlatform", configure)
