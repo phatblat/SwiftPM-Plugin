@@ -158,20 +158,12 @@ gradlePlugin {
     }
 }
 
-// maven
-//uploadArchives {
-//    repositories.mavenDeployer {
-//        repository url: "file://$buildDir/maven/repo"
-//        pom.artifactId = artifactName
-//    }
-//}
-
 /* -------------------------------------------------------------------------- */
 // Experimental
 /* -------------------------------------------------------------------------- */
 
 // IntelliJ IDEA project generation
-configure<IdeaModel> {
+idea {
     project {
         languageLevel = IdeaLanguageLevel(JavaVersion.VERSION_1_8)
     }
@@ -186,18 +178,6 @@ configure<IdeaModel> {
 /* -------------------------------------------------------------------------- */
 
 /**
- * Retrieves the [gradlePlugin][org.gradle.plugin.devel.GradlePluginDevelopmentExtension] project extension.
- */
-val Project.`gradlePlugin`: GradlePluginDevelopmentExtension get() =
-    extensions.getByType(GradlePluginDevelopmentExtension::class.java)
-
-/**
- * Configures the [gradlePlugin][org.gradle.plugin.devel.GradlePluginDevelopmentExtension] project extension.
- */
-fun Project.`gradlePlugin`(configure: GradlePluginDevelopmentExtension.() -> Unit) =
-    extensions.configure(GradlePluginDevelopmentExtension::class.java, configure)
-
-/**
  * Retrieves the [junitPlatform][org.junit.platform.gradle.plugin.JUnitPlatformExtension] project extension.
  */
 val Project.`junitPlatform`: JUnitPlatformExtension get() =
@@ -208,3 +188,27 @@ val Project.`junitPlatform`: JUnitPlatformExtension get() =
  */
 fun Project.`junitPlatform`(configure: JUnitPlatformExtension.() -> Unit) =
     extensions.configure(JUnitPlatformExtension::class.java, configure)
+
+/**
+ * Retrieves the [gradlePlugin][org.gradle.plugin.devel.GradlePluginDevelopmentExtension] project extension.
+ */
+val Project.`gradlePlugin`: GradlePluginDevelopmentExtension get() =
+    extensions.getByType(GradlePluginDevelopmentExtension::class.java)
+
+/**
+ * Configures the [gradlePlugin][org.gradle.plugin.devel.GradlePluginDevelopmentExtension] project extension.
+ */
+fun Project.`gradlePlugin`(configure: GradlePluginDevelopmentExtension.() -> Unit) =
+        extensions.configure(GradlePluginDevelopmentExtension::class.java, configure)
+
+/**
+ * Retrieves the [idea][org.gradle.plugins.ide.idea.model.IdeaModel] project extension.
+ */
+val Project.`idea`: IdeaModel get() =
+    extensions.getByType(IdeaModel::class.java)
+
+/**
+ * Configures the [idea][org.gradle.plugins.ide.idea.model.IdeaModel] project extension.
+ */
+fun Project.`idea`(configure: IdeaModel.() -> Unit) =
+        extensions.configure(IdeaModel::class.java, configure)
