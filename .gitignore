@@ -21,6 +21,7 @@ bin/
 # IntelliJ IDEA
 .idea/.name
 .idea/compiler.xml
+.idea/dictionaries/
 .idea/gradle.xml
 .idea/inspectionProfiles/
 .idea/libraries/
