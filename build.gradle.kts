@@ -4,6 +4,8 @@
  */
 
 import org.gradle.api.tasks.wrapper.Wrapper.DistributionType
+import org.gradle.kotlin.dsl.`kotlin-dsl`
+import org.gradle.kotlin.dsl.kotlin
 import org.gradle.plugins.ide.idea.model.IdeaLanguageLevel
 import org.gradle.plugins.ide.idea.model.IdeaModel
 import org.gradle.plugins.ide.idea.model.IdeaModule
@@ -44,18 +46,13 @@ buildscript {
 }
 
 plugins {
-   `kotlin-dsl` // 0.11.1
-//    base
-//    `java-gradle-plugin`
+    idea
+    `java-gradle-plugin`
+    `kotlin-dsl` // 0.11.1
 }
 
 apply {
-    plugin("base")
-    plugin("kotlin")
-    plugin("java-gradle-plugin")
-    plugin("org.junit.platform.gradle.plugin") // junit-platform-gradle-plugin
-    plugin("maven")
-    plugin("idea")
+    plugin("org.junit.platform.gradle.plugin") // org.junit.platform:junit-platform-gradle-plugin
 }
 
 val removeBatchFile by tasks.creating(Delete::class) { delete("gradlew.bat") }
