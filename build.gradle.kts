@@ -148,12 +148,8 @@ configure<BasePluginConvention> {
     // at.phatbl.swiftpm-1.0.0.jar
     archivesBaseName = javaPackage
 }
-//base {
-//    archivesBaseName = ""
-//}
 
-// java-gradle-plugin
-configure<GradlePluginDevelopmentExtension> {
+gradlePlugin {
     plugins {
         create("swiftpm") {
             id = artifactName
@@ -190,13 +186,25 @@ configure<IdeaModel> {
 /* -------------------------------------------------------------------------- */
 
 /**
+ * Retrieves the [gradlePlugin][org.gradle.plugin.devel.GradlePluginDevelopmentExtension] project extension.
+ */
+val Project.`gradlePlugin`: GradlePluginDevelopmentExtension get() =
+    extensions.getByType(GradlePluginDevelopmentExtension::class.java)
+
+/**
+ * Configures the [gradlePlugin][org.gradle.plugin.devel.GradlePluginDevelopmentExtension] project extension.
+ */
+fun Project.`gradlePlugin`(configure: GradlePluginDevelopmentExtension.() -> Unit) =
+    extensions.configure(GradlePluginDevelopmentExtension::class.java, configure)
+
+/**
  * Retrieves the [junitPlatform][org.junit.platform.gradle.plugin.JUnitPlatformExtension] project extension.
  */
-val Project.`junitPlatform`: org.junit.platform.gradle.plugin.JUnitPlatformExtension get() =
-    extensions.getByName("junitPlatform") as org.junit.platform.gradle.plugin.JUnitPlatformExtension
+val Project.`junitPlatform`: JUnitPlatformExtension get() =
+    extensions.getByType(JUnitPlatformExtension::class.java)
 
 /**
  * Configures the [junitPlatform][org.junit.platform.gradle.plugin.JUnitPlatformExtension] project extension.
  */
-fun Project.`junitPlatform`(configure: org.junit.platform.gradle.plugin.JUnitPlatformExtension.() -> Unit) =
-        extensions.configure("junitPlatform", configure)
+fun Project.`junitPlatform`(configure: JUnitPlatformExtension.() -> Unit) =
+    extensions.configure(JUnitPlatformExtension::class.java, configure)
