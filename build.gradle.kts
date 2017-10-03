@@ -4,6 +4,8 @@
  */
 
 import org.gradle.api.tasks.wrapper.Wrapper.DistributionType
+import org.gradle.kotlin.dsl.`kotlin-dsl`
+import org.gradle.kotlin.dsl.kotlin
 import org.gradle.plugins.ide.idea.model.IdeaLanguageLevel
 import org.gradle.plugins.ide.idea.model.IdeaModel
 import org.gradle.plugins.ide.idea.model.IdeaModule
@@ -32,7 +34,7 @@ val junitVintageVersion  = "4.12.0"
 val junit4Version        = "4.12"
 
 buildscript {
-    val kotlinVersion by extra("1.1.4-3")
+    val kotlinVersion by extra("1.1.51")
     val junitPlatformVersion by extra("1.0.0")
     repositories {
         maven("https://repo.gradle.org/gradle/repo") // gradleKotlinDsl()
@@ -44,18 +46,13 @@ buildscript {
 }
 
 plugins {
-   `kotlin-dsl` // 0.11.1
-//    base
-//    `java-gradle-plugin`
+    idea
+    `java-gradle-plugin`
+    `kotlin-dsl` // 0.11.1
 }
 
 apply {
-    plugin("base")
-    plugin("kotlin")
-    plugin("java-gradle-plugin")
-    plugin("org.junit.platform.gradle.plugin") // junit-platform-gradle-plugin
-    plugin("maven")
-    plugin("idea")
+    plugin("org.junit.platform.gradle.plugin") // org.junit.platform:junit-platform-gradle-plugin
 }
 
 val removeBatchFile by tasks.creating(Delete::class) { delete("gradlew.bat") }
@@ -126,18 +123,13 @@ configure<JavaPluginConvention> {
 // Testing
 /* -------------------------------------------------------------------------- */
 
-// org.junit.platform.gradle.plugin
-configure<JUnitPlatformExtension> {
+junitPlatform {
     platformVersion = junitPlatformVersion
-}
-val junitPlatformExtension = project.extensions.getByName("junitPlatform") as JUnitPlatformExtension
-junitPlatformExtension.closureOf<JUnitPlatformExtension> {
-    val filter = extensions.getByName("filter") as FiltersExtension
-    filter.includeClassNamePatterns("^.*Tests?$", ".*Spec", ".*Spek")
-
-    filter.closureOf<FiltersExtension> {
-        val engines = extensions.getByName("engines") as EnginesExtension
-        engines.include("spek", "junit-jupiter", "junit-vintage")
+    filters {
+        includeClassNamePatterns("^.*Tests?$", ".*Spec", ".*Spek")
+        engines {
+            include("spek", "junit-jupiter", "junit-vintage")
+        }
     }
 }
 
@@ -153,12 +145,8 @@ configure<BasePluginConvention> {
     // at.phatbl.swiftpm-1.0.0.jar
     archivesBaseName = javaPackage
 }
-//base {
-//    archivesBaseName = ""
-//}
 
-// java-gradle-plugin
-configure<GradlePluginDevelopmentExtension> {
+gradlePlugin {
     plugins {
         create("swiftpm") {
             id = artifactName
@@ -167,20 +155,12 @@ configure<GradlePluginDevelopmentExtension> {
     }
 }
 
-// maven
-//uploadArchives {
-//    repositories.mavenDeployer {
-//        repository url: "file://$buildDir/maven/repo"
-//        pom.artifactId = artifactName
-//    }
-//}
-
 /* -------------------------------------------------------------------------- */
 // Experimental
 /* -------------------------------------------------------------------------- */
 
 // IntelliJ IDEA project generation
-configure<IdeaModel> {
+idea {
     project {
         languageLevel = IdeaLanguageLevel(JavaVersion.VERSION_1_8)
     }
@@ -189,3 +169,43 @@ configure<IdeaModel> {
         isDownloadSources = true
     }
 }
+
+/* -------------------------------------------------------------------------- */
+// Groovy-like DSL
+/* -------------------------------------------------------------------------- */
+
+/**
+ * Retrieves the [junitPlatform][org.junit.platform.gradle.plugin.JUnitPlatformExtension] project extension.
+ */
+val Project.`junitPlatform`: JUnitPlatformExtension get() =
+    extensions.getByType(JUnitPlatformExtension::class.java)
+
+/**
+ * Configures the [junitPlatform][org.junit.platform.gradle.plugin.JUnitPlatformExtension] project extension.
+ */
+fun Project.`junitPlatform`(configure: JUnitPlatformExtension.() -> Unit) =
+    extensions.configure(JUnitPlatformExtension::class.java, configure)
+
+/**
+ * Retrieves the [gradlePlugin][org.gradle.plugin.devel.GradlePluginDevelopmentExtension] project extension.
+ */
+val Project.`gradlePlugin`: GradlePluginDevelopmentExtension get() =
+    extensions.getByType(GradlePluginDevelopmentExtension::class.java)
+
+/**
+ * Configures the [gradlePlugin][org.gradle.plugin.devel.GradlePluginDevelopmentExtension] project extension.
+ */
+fun Project.`gradlePlugin`(configure: GradlePluginDevelopmentExtension.() -> Unit) =
+        extensions.configure(GradlePluginDevelopmentExtension::class.java, configure)
+
+/**
+ * Retrieves the [idea][org.gradle.plugins.ide.idea.model.IdeaModel] project extension.
+ */
+val Project.`idea`: IdeaModel get() =
+    extensions.getByType(IdeaModel::class.java)
+
+/**
+ * Configures the [idea][org.gradle.plugins.ide.idea.model.IdeaModel] project extension.
+ */
+fun Project.`idea`(configure: IdeaModel.() -> Unit) =
+        extensions.configure(IdeaModel::class.java, configure)
