@@ -57,4 +57,6 @@ This repo is licensed under the MIT License. See the [LICENSE](LICENSE.md) file 
 
 # Gradle Version
 
+TODO: Include minimum gradle version
+
 The build script for this project uses Gradle 4.2 and Kotlin DSL version 0.11.1.
