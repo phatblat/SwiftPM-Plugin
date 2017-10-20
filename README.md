@@ -9,7 +9,7 @@ Gradle plugin for the [Swift Package Manager](https://github.com/apple/swift-pac
 Note that only tools [version 4](https://github.com/apple/swift-package-manager/blob/master/Documentation/PackageDescriptionV4.md#packagedescription-api-version-4)
 is supported.
 
-TODO: Create gradle tasks for remaining subcommands.
+TODO: Create gradle tasks for all remaining subcommands.
 
 ```
 swift package --help                                                                                                                                                                                                                                                                             ⌚️ 13:44:36
