@@ -9,4 +9,3 @@
  */
 
 rootProject.name = 'SwiftPM'
-rootProject.buildFileName = 'build.gradle.kts'
