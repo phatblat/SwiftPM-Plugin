@@ -25,8 +25,6 @@ version = "0.1.0"
 // Build Script
 /* -------------------------------------------------------------------------- */
 
-val kotlinVersion: String by extra
-println("kotlinVersion: $kotlinVersion")
 val spekVersion = "1.1.5"
 val junitPlatformVersion: String by extra
 val junitJupiterVersion  = "5.0.0"
@@ -34,21 +32,22 @@ val junitVintageVersion  = "4.12.0"
 val junit4Version        = "4.12"
 
 buildscript {
-    val kotlinVersion by extra("1.1.51")
     val junitPlatformVersion by extra("1.0.0")
     repositories {
         maven("https://repo.gradle.org/gradle/repo") // gradleKotlinDsl()
     }
     dependencies {
-        classpath(kotlin("gradle-plugin", kotlinVersion))
         classpath("org.junit.platform:junit-platform-gradle-plugin:$junitPlatformVersion")
     }
 }
 
 plugins {
+    // Gradle built-in
     idea
     `java-gradle-plugin`
-    `kotlin-dsl` // 0.11.1
+
+    // Gradle plugin portal - https://plugins.gradle.org/
+    kotlin("jvm") version "1.2.31"
 }
 
 apply {
@@ -59,7 +58,7 @@ val removeBatchFile by tasks.creating(Delete::class) { delete("gradlew.bat") }
 
 tasks {
     "wrapper"(Wrapper::class) {
-        gradleVersion = "4.2"
+        gradleVersion = "4.6"
         distributionType = DistributionType.ALL
         finalizedBy(removeBatchFile)
     }
@@ -81,36 +80,18 @@ tasks.withType<KotlinCompile> {
 // Build Configuration
 /* -------------------------------------------------------------------------- */
 
-repositories {
-    jcenter()
-    maven("https://repo.gradle.org/gradle/repo")
-    maven("http://dl.bintray.com/jetbrains/spek")
-}
+repositories.jcenter()
 
-// In this section you declare the dependencies for your production and test code
 dependencies {
-    compile(gradleKotlinDsl())
-    compile(kotlin("stdlib", kotlinVersion))
-//    compile("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
-//    compile("org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlinVersion")
+    implementation(kotlin("stdlib"))
+    implementation(kotlin("stdlib-jdk8"))
+    implementation(kotlin("reflect"))
 
-    // Speck
-    compile("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
-    testCompile("org.jetbrains.kotlin:kotlin-test:$kotlinVersion")
-    testCompile("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion")
-    testCompile("org.jetbrains.spek:spek-api:$spekVersion")
-    testCompile("org.jetbrains.spek:spek-junit-platform-engine:$spekVersion")
-//    testCompile("org.junit.platform:junit-platform-engine:$junitPlatformVersion")
-//    testCompile("org.junit.platform:junit-platform-launcher:$junitPlatformVersion")
-    testCompile("org.junit.platform:junit-platform-runner:$junitPlatformVersion")
-
-    // JUnit 5
-//    testCompile("org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion")
-//    testRuntime("org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion")
-
-    // JUnit 4
-//    testCompile("junit:junit:$junit4Version")
-//    testRuntime("org.junit.vintage:junit-vintage-engine:$junitVintageVersion")
+    testImplementation(kotlin("test"))
+    testImplementation(kotlin("test-junit"))
+    testImplementation("org.junit.platform:junit-platform-runner:$junitPlatformVersion")
+    testImplementation("org.jetbrains.spek:spek-api:$spekVersion")
+    testImplementation("org.jetbrains.spek:spek-junit-platform-engine:$spekVersion")
 }
 
 // java

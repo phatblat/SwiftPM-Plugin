@@ -32,11 +32,11 @@ node {
             git gitRepoUrl
         }
     }
-    stage('Build') {
-        sh './gradlew build'
+    stage('Assemble') {
+        sh './gradlew --info --no-daemon --stacktrace assemble'
     }
     stage('Check') {
-        sh './gradlew check'
+        sh './gradlew --info --no-daemon --stacktrace check'
     }
     stage('Example') {
         dir('example') {
@@ -51,9 +51,6 @@ node {
                 sh "./gradlew ${it}"
             }
         }
-    }
-    stage('Assemble') {
-        sh './gradlew assemble'
     }
     stage('Archive') {
         archiveArtifacts artifacts: 'build/libs/*.jar', fingerprint: true
