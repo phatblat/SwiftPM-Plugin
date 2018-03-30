@@ -3,6 +3,7 @@ package at.phatbl.swiftpm
 import at.phatbl.swiftpm.Constants.Companion.TASK_CLEAN
 import at.phatbl.swiftpm.Constants.Companion.TASK_DESCRIBE
 import at.phatbl.swiftpm.Constants.Companion.TASK_DUMP_PACKAGE
+import at.phatbl.swiftpm.Constants.Companion.TASK_GENERATE_XCODE_PROJECT
 import at.phatbl.swiftpm.Constants.Companion.TASK_RESET
 import at.phatbl.swiftpm.Constants.Companion.TASK_SWIFT_VERSION
 import at.phatbl.swiftpm.Constants.Companion.TASK_TOOLS_VERSION
@@ -18,6 +19,7 @@ class SwiftPMPlugin : Plugin<Project> {
     lateinit var clean: Task
     lateinit var describe: Task
     lateinit var dumpPackage: Task
+    lateinit var generateXcodeTask: Task
     lateinit var reset: Task
     lateinit var swiftVersion: Task
     lateinit var toolsVersion: Task
@@ -29,6 +31,7 @@ class SwiftPMPlugin : Plugin<Project> {
         clean = project.tasks.create(TASK_CLEAN, CleanTask::class.java)
         describe = project.tasks.create(TASK_DESCRIBE, DescribeTask::class.java)
         dumpPackage = project.tasks.create(TASK_DUMP_PACKAGE, DumpPackageTask::class.java)
+        generateXcodeTask = project.tasks.create(TASK_GENERATE_XCODE_PROJECT, GenerateXcodeTask::class.java)
         reset = project.tasks.create(TASK_RESET, ResetTask::class.java)
         swiftVersion = project.tasks.create(TASK_SWIFT_VERSION, SwiftVersionTask::class.java)
         toolsVersion = project.tasks.create(TASK_TOOLS_VERSION, ToolsVersionTask::class.java)
