@@ -3,55 +3,65 @@
  * SwiftPM-Plugin
  */
 
+/* -------------------------------------------------------------------------- */
+// 🛃 Imports
+/* -------------------------------------------------------------------------- */
+
 import org.gradle.api.tasks.wrapper.Wrapper.DistributionType
-import org.gradle.kotlin.dsl.`kotlin-dsl`
+import org.gradle.internal.impldep.org.junit.experimental.categories.Categories.CategoryFilter.include
 import org.gradle.kotlin.dsl.kotlin
 import org.gradle.plugins.ide.idea.model.IdeaLanguageLevel
 import org.gradle.plugins.ide.idea.model.IdeaModel
 import org.gradle.plugins.ide.idea.model.IdeaModule
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.preprocessor.mkdirsOrFail
+import org.junit.platform.console.options.Details
 import org.junit.platform.gradle.plugin.EnginesExtension
 import org.junit.platform.gradle.plugin.FiltersExtension
 import org.junit.platform.gradle.plugin.JUnitPlatformExtension
+import java.util.Date
 
 /* -------------------------------------------------------------------------- */
-// Properties
+// 🔌 Plugins
 /* -------------------------------------------------------------------------- */
-
-group = "at.phatbl"
-version = "0.1.0"
-
-/* -------------------------------------------------------------------------- */
-// Build Script
-/* -------------------------------------------------------------------------- */
-
-val spekVersion = "1.1.5"
-val junitPlatformVersion: String by extra
-val junitJupiterVersion  = "5.0.0"
-val junitVintageVersion  = "4.12.0"
-val junit4Version        = "4.12"
-
-buildscript {
-    val junitPlatformVersion by extra("1.0.0")
-    repositories {
-        maven("https://repo.gradle.org/gradle/repo") // gradleKotlinDsl()
-    }
-    dependencies {
-        classpath("org.junit.platform:junit-platform-gradle-plugin:$junitPlatformVersion")
-    }
-}
 
 plugins {
     // Gradle built-in
-    idea
     `java-gradle-plugin`
+    maven // only applied to make bintray happy
+    `maven-publish`
 
     // Gradle plugin portal - https://plugins.gradle.org/
     kotlin("jvm") version "1.2.31"
+    id("com.jfrog.bintray") version "1.8.0"
+    id("com.gradle.plugin-publish") version "0.9.10"
+
+    // Custom handling in pluginManagement
+    id("org.junit.platform.gradle.plugin") version "1.1.0"
 }
 
-apply {
-    plugin("org.junit.platform.gradle.plugin") // org.junit.platform:junit-platform-gradle-plugin
+/* -------------------------------------------------------------------------- */
+// 📋 Properties
+/* -------------------------------------------------------------------------- */
+
+val artifactName by project
+val projectName = "$artifactName".capitalize()
+val javaPackage = "$group.$artifactName"
+val pluginClass by project
+val projectUrl by project
+val tags by project
+val labels = "$tags".split(",")
+val license by project
+
+val jvmTarget = JavaVersion.VERSION_1_8.toString()
+val spekVersion by project
+
+// This is necessary to make the plugin version accessible in other places
+// https://stackoverflow.com/questions/46053522/how-to-get-ext-variables-into-plugins-block-in-build-gradle-kts/47507441#47507441
+val junitPlatformVersion: String? by extra {
+    buildscript.configurations["classpath"]
+            .resolvedConfiguration.firstLevelModuleDependencies
+            .find { it.moduleName == "junit-platform-gradle-plugin" }?.moduleVersion
 }
 
 val removeBatchFile by tasks.creating(Delete::class) { delete("gradlew.bat") }
@@ -70,14 +80,8 @@ tasks {
     }
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-}
-
 /* -------------------------------------------------------------------------- */
-// Build Configuration
+// 👪 Dependencies
 /* -------------------------------------------------------------------------- */
 
 repositories.jcenter()
@@ -94,99 +98,160 @@ dependencies {
     testImplementation("org.jetbrains.spek:spek-junit-platform-engine:$spekVersion")
 }
 
-// java
-configure<JavaPluginConvention> {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+/* -------------------------------------------------------------------------- */
+// 🏗 Assemble
+/* -------------------------------------------------------------------------- */
+
+tasks.withType<JavaCompile> {
+    sourceCompatibility = jvmTarget
+    targetCompatibility = jvmTarget
+}
+tasks.withType<KotlinCompile> {
+    kotlinOptions.jvmTarget = jvmTarget
+}
+// Include resources
+java.sourceSets["main"].resources {
+    setSrcDirs(mutableListOf("src/main/resources"))
+    include("VERSION.txt")
 }
 
-/* -------------------------------------------------------------------------- */
-// Testing
-/* -------------------------------------------------------------------------- */
-
-junitPlatform {
-    platformVersion = junitPlatformVersion
-    filters {
-        includeClassNamePatterns("^.*Tests?$", ".*Spec", ".*Spek")
-        engines {
-            include("spek", "junit-jupiter", "junit-vintage")
-        }
+val updateVersionFile by tasks.creating {
+    description = "Updates the VERSION.txt file included with the plugin"
+    group = "Build"
+    doLast {
+        val resources = "src/main/resources"
+        project.file(resources).mkdirsOrFail()
+        val versionFile = project.file("$resources/VERSION.txt")
+        versionFile.createNewFile()
+        versionFile.writeText(version.toString())
     }
 }
 
-/* -------------------------------------------------------------------------- */
-// Deployment
-/* -------------------------------------------------------------------------- */
+tasks.getByName("assemble").dependsOn(updateVersionFile)
 
-val artifactName = name.toLowerCase()
-val javaPackage = "$group.$artifactName"
-val pluginClass =  "${name}Plugin"
+val sourcesJar by tasks.creating(Jar::class) {
+    dependsOn("classes")
+    classifier = "sources"
+    from(java.sourceSets["main"].allSource)
+}
+
+val javadocJar by tasks.creating(Jar::class) {
+    dependsOn("javadoc")
+    classifier = "javadoc"
+    val javadoc = tasks.withType<Javadoc>().first()
+    from(javadoc.destinationDir)
+}
+
+artifacts.add("archives", sourcesJar)
+artifacts.add("archives", javadocJar)
 
 configure<BasePluginConvention> {
-    // at.phatbl.swiftpm-1.0.0.jar
+    // at.phatbl.clamp-1.0.0.jar
     archivesBaseName = javaPackage
 }
 
-gradlePlugin {
-    plugins {
-        create("swiftpm") {
-            id = artifactName
-            implementationClass = "$javaPackage.$pluginClass"
+gradlePlugin.plugins.create("$artifactName") {
+    id = javaPackage
+    implementationClass = "$javaPackage.$pluginClass"
+}
+
+pluginBundle {
+    website = "$projectUrl"
+    vcsUrl = "$projectUrl"
+    description = project.description
+    tags = labels
+
+    plugins.create("$artifactName") {
+        id = javaPackage
+        displayName = "$projectName plugin"
+    }
+    mavenCoordinates.artifactId = "$artifactName"
+}
+
+
+/* -------------------------------------------------------------------------- */
+// ✅ Test
+/* -------------------------------------------------------------------------- */
+
+junitPlatform {
+    filters {
+        engines {
+            include("spek")
+        }
+    }
+    details = Details.TREE
+}
+
+/* -------------------------------------------------------------------------- */
+// 🔍 Code Quality
+/* -------------------------------------------------------------------------- */
+
+val codeQuality by tasks.creating
+
+/* -------------------------------------------------------------------------- */
+// 🚀 Deployment
+/* -------------------------------------------------------------------------- */
+
+publishing {
+    (publications) {
+        "mavenJava"(MavenPublication::class) {
+            from(components["java"])
+            artifactId = "$artifactName"
+
+            artifact(sourcesJar) { classifier = "sources" }
+            artifact(javadocJar) { classifier = "javadoc" }
         }
     }
 }
 
-/* -------------------------------------------------------------------------- */
-// Experimental
-/* -------------------------------------------------------------------------- */
+bintray {
+    user = property("bintray.user") as String
+    key = property("bintray.api.key") as String
+    setPublications("mavenJava")
+    setConfigurations("archives")
+    dryRun = false
+    publish = true
+    pkg.apply {
+        repo = property("bintray.repo") as String
+        name = projectName
+        desc = project.description
+        websiteUrl = "$projectUrl"
+        issueTrackerUrl = "$projectUrl/issues"
+        vcsUrl = "$projectUrl.git"
+        githubRepo = "phatblat/$projectName"
+        githubReleaseNotesFile = "CHANGELOG.md"
+        setLicenses("$license")
+        setLabels("gradle", "plugin", "wrapper")
+        publicDownloadNumbers = true
+        version.apply {
+            name = project.version.toString()
+            desc = "$projectName Gradle Plugin ${project.version}"
+            released = Date().toString()
+            vcsTag = project.version.toString()
+            attributes = mapOf("gradle-plugin" to "${project.group}:$artifactName:$version")
 
-// IntelliJ IDEA project generation
-idea {
-    project {
-        languageLevel = IdeaLanguageLevel(JavaVersion.VERSION_1_8)
-    }
-    module {
-        isDownloadJavadoc = true // defaults to false
-        isDownloadSources = true
+            mavenCentralSync.apply {
+                sync = false //Optional (true by default). Determines whether to sync the version to Maven Central.
+                user = "userToken" //OSS user token
+                password = "password" //OSS user password
+                close = "1" //Optional property. By default the staging repository is closed and artifacts are released to Maven Central. You can optionally turn this behaviour off (by puting 0 as value) and release the version manually.
+            }
+        }
     }
 }
 
-/* -------------------------------------------------------------------------- */
-// Groovy-like DSL
-/* -------------------------------------------------------------------------- */
+// Workaround to eliminate warning from bintray plugin, which assumes the "maven" plugin is being used.
+// https://github.com/bintray/gradle-bintray-plugin/blob/master/src/main/groovy/com/jfrog/bintray/gradle/BintrayPlugin.groovy#L85
+val install by tasks
+install.doFirst {
+    val maven = project.convention.plugins["maven"] as MavenPluginConvention
+    maven.mavenPomDir = file("$buildDir/publications/mavenJava")
+    logger.info("Configured maven plugin to use same output dir as maven-publish: ${maven.mavenPomDir}")
+}
 
-/**
- * Retrieves the [junitPlatform][org.junit.platform.gradle.plugin.JUnitPlatformExtension] project extension.
- */
-val Project.`junitPlatform`: JUnitPlatformExtension get() =
-    extensions.getByType(JUnitPlatformExtension::class.java)
-
-/**
- * Configures the [junitPlatform][org.junit.platform.gradle.plugin.JUnitPlatformExtension] project extension.
- */
-fun Project.`junitPlatform`(configure: JUnitPlatformExtension.() -> Unit) =
-    extensions.configure(JUnitPlatformExtension::class.java, configure)
-
-/**
- * Retrieves the [gradlePlugin][org.gradle.plugin.devel.GradlePluginDevelopmentExtension] project extension.
- */
-val Project.`gradlePlugin`: GradlePluginDevelopmentExtension get() =
-    extensions.getByType(GradlePluginDevelopmentExtension::class.java)
-
-/**
- * Configures the [gradlePlugin][org.gradle.plugin.devel.GradlePluginDevelopmentExtension] project extension.
- */
-fun Project.`gradlePlugin`(configure: GradlePluginDevelopmentExtension.() -> Unit) =
-        extensions.configure(GradlePluginDevelopmentExtension::class.java, configure)
-
-/**
- * Retrieves the [idea][org.gradle.plugins.ide.idea.model.IdeaModel] project extension.
- */
-val Project.`idea`: IdeaModel get() =
-    extensions.getByType(IdeaModel::class.java)
-
-/**
- * Configures the [idea][org.gradle.plugins.ide.idea.model.IdeaModel] project extension.
- */
-fun Project.`idea`(configure: IdeaModel.() -> Unit) =
-        extensions.configure(IdeaModel::class.java, configure)
+val deploy by tasks.creating {
+    description = "Deploys the artifact."
+    group = "Deployment"
+    dependsOn("bintrayUpload")
+    dependsOn("publishPlugins")
+}
