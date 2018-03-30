@@ -3,6 +3,7 @@ package at.phatbl.swiftpm
 import at.phatbl.swiftpm.Constants.Companion.TASK_CLEAN
 import at.phatbl.swiftpm.Constants.Companion.TASK_DESCRIBE
 import at.phatbl.swiftpm.Constants.Companion.TASK_DUMP_PACKAGE
+import at.phatbl.swiftpm.Constants.Companion.TASK_GENERATE_XCODE_PROJECT
 import at.phatbl.swiftpm.Constants.Companion.TASK_RESET
 import at.phatbl.swiftpm.Constants.Companion.TASK_SWIFT_VERSION
 import at.phatbl.swiftpm.Constants.Companion.TASK_TOOLS_VERSION
@@ -36,6 +37,12 @@ object SwiftPMPluginSpek: Spek({
             val task = project.tasks.findByName(TASK_DUMP_PACKAGE)
             assertNotNull(task)
             assertTrue { task is DumpPackageTask }
+        }
+
+        it("has a generate xcode project task") {
+            val task = project.tasks.findByName(TASK_GENERATE_XCODE_PROJECT)
+            assertNotNull(task)
+            assertTrue { task is GenerateXcodeTask }
         }
 
         it("has a reset task") {
