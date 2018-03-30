@@ -5,7 +5,7 @@ package at.phatbl.swiftpm
  */
 class Constants {
     companion object {
-        const val SWIFTPM_TASK_GROUP = "SwiftPM"
+        const val SWIFTPM_TASK_GROUP = "📦 SwiftPM"
 
         // SwiftPM task names
         const val SPM_TASK_PREFIX = "swiftpm"
