@@ -7,6 +7,10 @@ class Constants {
     companion object {
         const val SWIFTPM_TASK_GROUP = "📦 SwiftPM"
 
+        // Swift task names
+        const val SWIFT_TASK_PREFIX = "swift"
+        const val TASK_SWIFT_VERSION = SWIFT_TASK_PREFIX + "Version"
+
         // SwiftPM task names
         const val SPM_TASK_PREFIX = "swiftpm"
         const val TASK_CLEAN = SPM_TASK_PREFIX + "Clean"
@@ -16,9 +20,5 @@ class Constants {
         const val TASK_RESET = SPM_TASK_PREFIX + "Reset"
         const val TASK_TOOLS_VERSION = SPM_TASK_PREFIX + "ToolsVersion"
         const val TASK_VERSION = SPM_TASK_PREFIX + "Version"
-
-        // Swift task names
-        const val SWIFT_TASK_PREFIX = "swift"
-        const val TASK_SWIFT_VERSION = SWIFT_TASK_PREFIX + "Version"
     }
 }
