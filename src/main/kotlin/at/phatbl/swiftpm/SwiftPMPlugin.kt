@@ -35,6 +35,7 @@ class SwiftPMPlugin : Plugin<Project> {
 
     override fun apply(project: Project) {
         this.project = project
+        project.logger.info("SwiftPM plugin version: ${Version.text}")
 
         build = project.tasks.create(TASK_SWIFT_BUILD, BuildTask::class.java)
         test = project.tasks.create(TASK_SWIFT_TEST, TestTask::class.java)
@@ -47,53 +48,5 @@ class SwiftPMPlugin : Plugin<Project> {
         pmVersion = project.tasks.create(TASK_VERSION, PMVersionTask::class.java)
         reset = project.tasks.create(TASK_RESET, ResetTask::class.java)
         toolsVersion = project.tasks.create(TASK_TOOLS_VERSION, ToolsVersionTask::class.java)
-    }
-
-    /**
-     * Logs the plugin version.
-     */
-    private fun showPluginVersion() {
-        val version = getVersion()
-        if (version != "") {
-            project.logger.info("Plugin version: $version")
-        }
-    }
-
-    /**
-     * Extracts the version of this plugin at runtime based on the Maven file structure. Directory containing
-     * the JAR file is inferred as the version number.
-     *
-     * @return String representation of the version number
-     */
-    private fun getVersion(): String {
-        // This logic only works for projects that depend on the plugin directly, which is typically only the
-        // root project.
-        if (project.name != project.rootProject.name || project.name == "test") {
-            return ""
-        }
-
-        val tree = project.buildscript.configurations.getByName("classpath").asFileTree.matching {
-            mapOf("include" to "**swiftpm**")
-        }
-
-        var jarFileAbsolutePath: String? = null
-        tree.forEach {
-            file -> jarFileAbsolutePath = "$file"
-        }
-
-        // Including the plugin as a library through a composite build breaks this method of version detection.
-        if (jarFileAbsolutePath == null) {
-            return ""
-        }
-
-        val tokens = jarFileAbsolutePath!!.split("/")
-        var version = tokens[tokens.count() - 1]
-
-        if (version.length >= 40) {
-            // Dependency fetched from gradle cache, version is one folder level higher
-            version = tokens[tokens.count() - 2]
-        }
-
-        return version
     }
 }
