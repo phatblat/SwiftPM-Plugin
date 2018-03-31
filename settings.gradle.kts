@@ -13,8 +13,12 @@ pluginManagement {
     }
     resolutionStrategy {
         eachPlugin {
-            if (requested.id.id == "org.junit.platform.gradle.plugin") {
-                useModule("org.junit.platform:junit-platform-gradle-plugin:${requested.version}")
+            when (requested.id.id) {
+                "at.phatbl.clamp" ->
+                    useModule("at.phatbl:clamp:${requested.version}")
+                "org.junit.platform.gradle.plugin" ->
+                    useModule("org.junit.platform:junit-platform-gradle-plugin:${requested.version}")
+                else -> Unit
             }
         }
     }
