@@ -1,11 +1,15 @@
 package at.phatbl.swiftpm
 
+import at.phatbl.swift.BuildTask
+import at.phatbl.swift.TestTask
 import at.phatbl.swift.VersionTask
 import at.phatbl.swiftpm.Constants.Companion.TASK_CLEAN
 import at.phatbl.swiftpm.Constants.Companion.TASK_DESCRIBE
 import at.phatbl.swiftpm.Constants.Companion.TASK_DUMP_PACKAGE
 import at.phatbl.swiftpm.Constants.Companion.TASK_GENERATE_XCODE_PROJECT
 import at.phatbl.swiftpm.Constants.Companion.TASK_RESET
+import at.phatbl.swiftpm.Constants.Companion.TASK_SWIFT_BUILD
+import at.phatbl.swiftpm.Constants.Companion.TASK_SWIFT_TEST
 import at.phatbl.swiftpm.Constants.Companion.TASK_SWIFT_VERSION
 import at.phatbl.swiftpm.Constants.Companion.TASK_TOOLS_VERSION
 import at.phatbl.swiftpm.Constants.Companion.TASK_VERSION
@@ -24,6 +28,16 @@ object SwiftPMPluginSpek: Spek({
         project.plugins.apply(SwiftPMPlugin::class.java)
 
         context("swift") {
+            it("has a swift build task") {
+                val task = project.tasks.findByName(TASK_SWIFT_BUILD)
+                assertNotNull(task)
+                assertTrue { task is BuildTask }
+            }
+            it("has a swift test task") {
+                val task = project.tasks.findByName(TASK_SWIFT_TEST)
+                assertNotNull(task)
+                assertTrue { task is TestTask }
+            }
             it("has a swift version task") {
                 val task = project.tasks.findByName(TASK_SWIFT_VERSION)
                 assertNotNull(task)

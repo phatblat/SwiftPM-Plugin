@@ -10,6 +10,7 @@ class Constants {
         // Swift task names
         const val SWIFT_TASK_PREFIX = "swift"
         const val TASK_SWIFT_BUILD = SWIFT_TASK_PREFIX + "Build"
+        const val TASK_SWIFT_TEST = SWIFT_TASK_PREFIX + "Test"
         const val TASK_SWIFT_VERSION = SWIFT_TASK_PREFIX + "Version"
 
         // SwiftPM task names

@@ -8,20 +8,20 @@ import org.jetbrains.spek.api.dsl.it
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
-object BuildTaskSpek: Spek({
-    describe("swift build task") {
+object TestTaskSpek: Spek({
+    describe("swift test task") {
         val project = ProjectBuilder.builder().build()
-        val task = project.tasks.create(Constants.TASK_SWIFT_BUILD, BuildTask::class.java)
+        val task = project.tasks.create(Constants.TASK_SWIFT_TEST, TestTask::class.java)
 
         it("can be added to project") {
             assertNotNull(task)
-            assertTrue { task is BuildTask }
+            assertTrue { task is TestTask }
         }
 
         it("has a tokenized command line") {
             val expectedTokens = arrayOf(
                     "swift",
-                    "build"
+                    "test"
             )
 
             expectedTokens.forEach { token ->

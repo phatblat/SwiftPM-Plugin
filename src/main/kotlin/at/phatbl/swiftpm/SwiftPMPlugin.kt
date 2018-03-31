@@ -1,11 +1,15 @@
 package at.phatbl.swiftpm
 
+import at.phatbl.swift.BuildTask
+import at.phatbl.swift.TestTask
 import at.phatbl.swift.VersionTask
 import at.phatbl.swiftpm.Constants.Companion.TASK_CLEAN
 import at.phatbl.swiftpm.Constants.Companion.TASK_DESCRIBE
 import at.phatbl.swiftpm.Constants.Companion.TASK_DUMP_PACKAGE
 import at.phatbl.swiftpm.Constants.Companion.TASK_GENERATE_XCODE_PROJECT
 import at.phatbl.swiftpm.Constants.Companion.TASK_RESET
+import at.phatbl.swiftpm.Constants.Companion.TASK_SWIFT_BUILD
+import at.phatbl.swiftpm.Constants.Companion.TASK_SWIFT_TEST
 import at.phatbl.swiftpm.Constants.Companion.TASK_SWIFT_VERSION
 import at.phatbl.swiftpm.Constants.Companion.TASK_TOOLS_VERSION
 import at.phatbl.swiftpm.Constants.Companion.TASK_VERSION
@@ -17,7 +21,9 @@ import org.gradle.api.Task
 class SwiftPMPlugin : Plugin<Project> {
     lateinit var project: Project
 
-    lateinit var swiftVersion: Task
+    lateinit var build: Task
+    lateinit var test: Task
+    lateinit var version: Task
 
     lateinit var clean: Task
     lateinit var describe: Task
@@ -30,7 +36,9 @@ class SwiftPMPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         this.project = project
 
-        swiftVersion = project.tasks.create(TASK_SWIFT_VERSION, VersionTask::class.java)
+        build = project.tasks.create(TASK_SWIFT_BUILD, BuildTask::class.java)
+        test = project.tasks.create(TASK_SWIFT_TEST, TestTask::class.java)
+        version = project.tasks.create(TASK_SWIFT_VERSION, VersionTask::class.java)
 
         clean = project.tasks.create(TASK_CLEAN, CleanTask::class.java)
         describe = project.tasks.create(TASK_DESCRIBE, DescribeTask::class.java)
