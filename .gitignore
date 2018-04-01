@@ -1,24 +1,11 @@
-.DS_Store
-
-# Gradle
-.gradle/
-build/
-gradlew.bat
-
-# Kotlin
-out/
-
-# Xcode
+!.idea/runConfigurations/
+*.iml
+*.ipr
+*.iws
 *.xccheckout
 *.xcscmblueprint
-xcuserdata/
-
-Carthage/
-Pods/
-.rubygems/
-bin/
-
-# IntelliJ IDEA
+.DS_Store
+.gradle/
 .idea/.name
 .idea/compiler.xml
 .idea/dictionaries/
@@ -26,11 +13,15 @@ bin/
 .idea/inspectionProfiles/
 .idea/libraries/
 .idea/misc.xml
-.idea/modules/
 .idea/modules.xml
-!.idea/runConfigurations/
+.idea/modules/
 .idea/vcs.xml
 .idea/workspace.xml
-*.iml
-*.ipr
-*.iws
+.rubygems/
+Carthage/
+Pods/
+bin/
+build/
+gradlew.bat
+out/
+xcuserdata/
