@@ -46,7 +46,6 @@ plugins {
 /* -------------------------------------------------------------------------- */
 
 val artifactName by project
-val projectName = "$artifactName".capitalize()
 val javaPackage = "$group.$artifactName"
 val pluginClass by project
 val projectUrl by project
@@ -164,7 +163,7 @@ pluginBundle {
 
     plugins.create("$artifactName") {
         id = javaPackage
-        displayName = "$projectName plugin"
+        displayName = "${project.name} plugin"
     }
     mavenCoordinates.artifactId = "$artifactName"
 }
@@ -213,19 +212,19 @@ bintray {
     publish = true
     pkg.apply {
         repo = property("bintray.repo") as String
-        name = projectName
+        name = project.name
         desc = project.description
         websiteUrl = "$projectUrl"
         issueTrackerUrl = "$projectUrl/issues"
         vcsUrl = "$projectUrl.git"
-        githubRepo = "phatblat/$projectName"
+        githubRepo = "phatblat/${project.name}-Plugin"
         githubReleaseNotesFile = "CHANGELOG.md"
         setLicenses("$license")
         setLabels("gradle", "plugin", "wrapper")
         publicDownloadNumbers = true
         version.apply {
             name = project.version.toString()
-            desc = "$projectName Gradle Plugin ${project.version}"
+            desc = "${project.name} Gradle Plugin ${project.version}"
             released = Date().toString()
             vcsTag = project.version.toString()
             attributes = mapOf("gradle-plugin" to "${project.group}:$artifactName:$version")
