@@ -16,37 +16,25 @@ import at.phatbl.swiftpm.Constants.Companion.TASK_VERSION
 import at.phatbl.swiftpm.tasks.*
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.Task
 
 class SwiftPMPlugin : Plugin<Project> {
     lateinit var project: Project
-
-    lateinit var build: Task
-    lateinit var test: Task
-    lateinit var version: Task
-
-    lateinit var clean: Task
-    lateinit var describe: Task
-    lateinit var dumpPackage: Task
-    lateinit var generateXcodeTask: Task
-    lateinit var pmVersion: Task
-    lateinit var reset: Task
-    lateinit var toolsVersion: Task
 
     override fun apply(project: Project) {
         this.project = project
         project.logger.info("SwiftPM plugin version: ${Version.text}")
 
-        build = project.tasks.create(TASK_SWIFT_BUILD, BuildTask::class.java)
-        test = project.tasks.create(TASK_SWIFT_TEST, TestTask::class.java)
-        version = project.tasks.create(TASK_SWIFT_VERSION, VersionTask::class.java)
-
-        clean = project.tasks.create(TASK_CLEAN, CleanTask::class.java)
-        describe = project.tasks.create(TASK_DESCRIBE, DescribeTask::class.java)
-        dumpPackage = project.tasks.create(TASK_DUMP_PACKAGE, DumpPackageTask::class.java)
-        generateXcodeTask = project.tasks.create(TASK_GENERATE_XCODE_PROJECT, GenerateXcodeTask::class.java)
-        pmVersion = project.tasks.create(TASK_VERSION, PMVersionTask::class.java)
-        reset = project.tasks.create(TASK_RESET, ResetTask::class.java)
-        toolsVersion = project.tasks.create(TASK_TOOLS_VERSION, ToolsVersionTask::class.java)
+        for ((taskName, clazz) in mapOf(
+                TASK_SWIFT_BUILD to BuildTask::class.java,
+                TASK_SWIFT_TEST to TestTask::class.java,
+                TASK_SWIFT_VERSION to VersionTask::class.java,
+                TASK_CLEAN to CleanTask::class.java,
+                TASK_DESCRIBE to DescribeTask::class.java,
+                TASK_DUMP_PACKAGE to DumpPackageTask::class.java,
+                TASK_GENERATE_XCODE_PROJECT to GenerateXcodeTask::class.java,
+                TASK_VERSION to PMVersionTask::class.java,
+                TASK_RESET to ResetTask::class.java,
+                TASK_TOOLS_VERSION to ToolsVersionTask::class.java
+        )) project.tasks.create(taskName, clazz)
     }
 }
