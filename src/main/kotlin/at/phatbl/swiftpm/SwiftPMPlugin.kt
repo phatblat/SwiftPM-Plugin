@@ -24,16 +24,17 @@ class SwiftPMPlugin : Plugin<Project> {
         this.project = project
         project.logger.info("SwiftPM plugin version: ${Version.text}")
 
-        project.tasks.create(TASK_SWIFT_BUILD, BuildTask::class.java)
-        project.tasks.create(TASK_SWIFT_TEST, TestTask::class.java)
-        project.tasks.create(TASK_SWIFT_VERSION, VersionTask::class.java)
-
-        project.tasks.create(TASK_CLEAN, CleanTask::class.java)
-        project.tasks.create(TASK_DESCRIBE, DescribeTask::class.java)
-        project.tasks.create(TASK_DUMP_PACKAGE, DumpPackageTask::class.java)
-        project.tasks.create(TASK_GENERATE_XCODE_PROJECT, GenerateXcodeTask::class.java)
-        project.tasks.create(TASK_VERSION, PMVersionTask::class.java)
-        project.tasks.create(TASK_RESET, ResetTask::class.java)
-        project.tasks.create(TASK_TOOLS_VERSION, ToolsVersionTask::class.java)
+        for ((taskName, clazz) in mapOf(
+                TASK_SWIFT_BUILD to BuildTask::class.java,
+                TASK_SWIFT_TEST to TestTask::class.java,
+                TASK_SWIFT_VERSION to VersionTask::class.java,
+                TASK_CLEAN to CleanTask::class.java,
+                TASK_DESCRIBE to DescribeTask::class.java,
+                TASK_DUMP_PACKAGE to DumpPackageTask::class.java,
+                TASK_GENERATE_XCODE_PROJECT to GenerateXcodeTask::class.java,
+                TASK_VERSION to PMVersionTask::class.java,
+                TASK_RESET to ResetTask::class.java,
+                TASK_TOOLS_VERSION to ToolsVersionTask::class.java
+        )) project.tasks.create(taskName, clazz)
     }
 }
