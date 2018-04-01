@@ -1,8 +1,9 @@
 # SwiftPM Plugin
 
-[![Tube](https://jenkins.log-g.co/buildStatus/icon?job=phatblat/SwiftPM-Plugin/master)](https://jenkins.log-g.co/job/phatblat/job/SwiftPM-Plugin/job/master/)
-[![codebeat badge](https://codebeat.co/badges/7fcaa41d-d366-4904-8b7c-05ec91aebb85)](https://codebeat.co/projects/github-com-phatblat-swiftpm-plugin-master)
-[![Kotlin 1.2.31](https://img.shields.io/badge/Kotlin-1.2.31-orange.svg?style=flat)](http://kotlinlang.org/)
+[ ![Tube](https://jenkins.log-g.co/buildStatus/icon?job=phatblat/SwiftPM-Plugin/master )](https://jenkins.log-g.co/job/phatblat/job/SwiftPM-Plugin/job/master/)
+[ ![codebeat badge](https://codebeat.co/badges/7fcaa41d-d366-4904-8b7c-05ec91aebb85) ](https://codebeat.co/projects/github-com-phatblat-swiftpm-plugin-master)
+[ ![Kotlin 1.2](https://img.shields.io/badge/Kotlin-1.2-orange.svg?style=flat) ](http://kotlinlang.org/)
+[ ![Download](https://api.bintray.com/packages/phatblat/maven-open-source/SwiftPM/images/download.svg) ](https://bintray.com/phatblat/maven-open-source/SwiftPM/_latestVersion)
 
 🐘🔌📦 Gradle plugin for the [Swift Package Manager](https://github.com/apple/swift-package-manager).
 
