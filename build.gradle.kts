@@ -55,6 +55,7 @@ val license by project
 
 val jvmTarget = JavaVersion.VERSION_1_8.toString()
 val spekVersion by project
+val shellExecVersion by project
 
 // This is necessary to make the plugin version accessible in other places
 // https://stackoverflow.com/questions/46053522/how-to-get-ext-variables-into-plugins-block-in-build-gradle-kts/47507441#47507441
@@ -82,6 +83,7 @@ dependencies {
     implementation(kotlin("stdlib"))
     implementation(kotlin("stdlib-jdk8"))
     implementation(kotlin("reflect"))
+    implementation("at.phatbl:shellexec:$shellExecVersion")
 
     testImplementation(kotlin("test"))
     testImplementation(kotlin("test-junit"))
