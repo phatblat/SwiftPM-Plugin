@@ -25,7 +25,7 @@ object VersionTaskSpek: Spek({
             )
 
             expectedTokens.forEach { token ->
-                assertTrue(task.commandLine.contains(token))
+                assertTrue(task.command.contains(token))
             }
         }
     }
