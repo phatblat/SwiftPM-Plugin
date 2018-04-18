@@ -8,6 +8,7 @@ import at.phatbl.swiftpm.Constants.Companion.TASK_DESCRIBE
 import at.phatbl.swiftpm.Constants.Companion.TASK_DUMP_PACKAGE
 import at.phatbl.swiftpm.Constants.Companion.TASK_GENERATE_XCODE_PROJECT
 import at.phatbl.swiftpm.Constants.Companion.TASK_RESET
+import at.phatbl.swiftpm.Constants.Companion.TASK_RESOLVE
 import at.phatbl.swiftpm.Constants.Companion.TASK_SWIFT_BUILD
 import at.phatbl.swiftpm.Constants.Companion.TASK_SWIFT_TEST
 import at.phatbl.swiftpm.Constants.Companion.TASK_SWIFT_VERSION
@@ -35,6 +36,7 @@ class SwiftPMPlugin : Plugin<Project> {
                 TASK_GENERATE_XCODE_PROJECT to GenerateXcodeTask::class.java,
                 TASK_VERSION to PMVersionTask::class.java,
                 TASK_RESET to ResetTask::class.java,
+                TASK_RESOLVE to ResolveTask::class.java,
                 TASK_TOOLS_VERSION to ToolsVersionTask::class.java,
                 TASK_UPDATE to UpdateTask::class.java
         )) project.tasks.create(taskName, clazz)
