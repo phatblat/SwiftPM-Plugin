@@ -21,6 +21,7 @@ class Constants {
         const val TASK_GENERATE_XCODE_PROJECT = SPM_TASK_PREFIX + "GenerateXcodeProject"
         const val TASK_RESET = SPM_TASK_PREFIX + "Reset"
         const val TASK_RESOLVE = SPM_TASK_PREFIX + "Resolve"
+        const val TASK_SHOW_DEPENDENCIES = SPM_TASK_PREFIX + "ShowDependencies"
         const val TASK_TOOLS_VERSION = SPM_TASK_PREFIX + "ToolsVersion"
         const val TASK_UPDATE = SPM_TASK_PREFIX + "Update"
         const val TASK_VERSION = SPM_TASK_PREFIX + "Version"

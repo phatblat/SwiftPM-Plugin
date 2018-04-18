@@ -9,6 +9,7 @@ import at.phatbl.swiftpm.Constants.Companion.TASK_DUMP_PACKAGE
 import at.phatbl.swiftpm.Constants.Companion.TASK_GENERATE_XCODE_PROJECT
 import at.phatbl.swiftpm.Constants.Companion.TASK_RESET
 import at.phatbl.swiftpm.Constants.Companion.TASK_RESOLVE
+import at.phatbl.swiftpm.Constants.Companion.TASK_SHOW_DEPENDENCIES
 import at.phatbl.swiftpm.Constants.Companion.TASK_SWIFT_BUILD
 import at.phatbl.swiftpm.Constants.Companion.TASK_SWIFT_TEST
 import at.phatbl.swiftpm.Constants.Companion.TASK_SWIFT_VERSION
@@ -88,6 +89,12 @@ object SwiftPMPluginSpek: Spek({
                 val task = project.tasks.findByName(TASK_RESOLVE)
                 assertNotNull(task)
                 assertTrue { task is ResolveTask }
+            }
+
+            it("has a show dependencies task") {
+                val task = project.tasks.findByName(TASK_SHOW_DEPENDENCIES)
+                assertNotNull(task)
+                assertTrue { task is ShowDependenciesTask }
             }
 
             it("has a tools version task") {

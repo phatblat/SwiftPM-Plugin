@@ -11,7 +11,7 @@ import kotlin.test.assertTrue
 object ResolveTaskSpek: Spek({
     describe("resolve task") {
         val project = ProjectBuilder.builder().build()
-        val task = project.tasks.create(Constants.TASK_DESCRIBE, ResolveTask::class.java)
+        val task = project.tasks.create(Constants.TASK_RESOLVE, ResolveTask::class.java)
 
         it("can be added to project") {
             assertNotNull(task)
