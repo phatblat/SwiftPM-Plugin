@@ -12,6 +12,7 @@ import at.phatbl.swiftpm.Constants.Companion.TASK_SWIFT_BUILD
 import at.phatbl.swiftpm.Constants.Companion.TASK_SWIFT_TEST
 import at.phatbl.swiftpm.Constants.Companion.TASK_SWIFT_VERSION
 import at.phatbl.swiftpm.Constants.Companion.TASK_TOOLS_VERSION
+import at.phatbl.swiftpm.Constants.Companion.TASK_UPDATE
 import at.phatbl.swiftpm.Constants.Companion.TASK_VERSION
 import at.phatbl.swiftpm.tasks.*
 import org.gradle.testfixtures.ProjectBuilder
@@ -86,6 +87,11 @@ object SwiftPMPluginSpek: Spek({
                 val task = project.tasks.findByName(TASK_TOOLS_VERSION)
                 assertNotNull(task)
                 assertTrue { task is ToolsVersionTask }
+            }
+
+            it("has an update task") {
+                val task = project.tasks.findByName(TASK_UPDATE)
+                assertTrue { task is UpdateTask }
             }
         }
     }
