@@ -8,10 +8,13 @@ import at.phatbl.swiftpm.Constants.Companion.TASK_DESCRIBE
 import at.phatbl.swiftpm.Constants.Companion.TASK_DUMP_PACKAGE
 import at.phatbl.swiftpm.Constants.Companion.TASK_GENERATE_XCODE_PROJECT
 import at.phatbl.swiftpm.Constants.Companion.TASK_RESET
+import at.phatbl.swiftpm.Constants.Companion.TASK_RESOLVE
+import at.phatbl.swiftpm.Constants.Companion.TASK_SHOW_DEPENDENCIES
 import at.phatbl.swiftpm.Constants.Companion.TASK_SWIFT_BUILD
 import at.phatbl.swiftpm.Constants.Companion.TASK_SWIFT_TEST
 import at.phatbl.swiftpm.Constants.Companion.TASK_SWIFT_VERSION
 import at.phatbl.swiftpm.Constants.Companion.TASK_TOOLS_VERSION
+import at.phatbl.swiftpm.Constants.Companion.TASK_UPDATE
 import at.phatbl.swiftpm.Constants.Companion.TASK_VERSION
 import at.phatbl.swiftpm.tasks.*
 import org.gradle.testfixtures.ProjectBuilder
@@ -82,10 +85,27 @@ object SwiftPMPluginSpek: Spek({
                 assertTrue { task is ResetTask }
             }
 
+            it("has a resolve task") {
+                val task = project.tasks.findByName(TASK_RESOLVE)
+                assertNotNull(task)
+                assertTrue { task is ResolveTask }
+            }
+
+            it("has a show dependencies task") {
+                val task = project.tasks.findByName(TASK_SHOW_DEPENDENCIES)
+                assertNotNull(task)
+                assertTrue { task is ShowDependenciesTask }
+            }
+
             it("has a tools version task") {
                 val task = project.tasks.findByName(TASK_TOOLS_VERSION)
                 assertNotNull(task)
                 assertTrue { task is ToolsVersionTask }
+            }
+
+            it("has an update task") {
+                val task = project.tasks.findByName(TASK_UPDATE)
+                assertTrue { task is UpdateTask }
             }
         }
     }
