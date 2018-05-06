@@ -38,7 +38,7 @@ plugins {
     id("com.gradle.plugin-publish") version "0.9.10"
 
     // Custom handling in pluginManagement
-    id("org.junit.platform.gradle.plugin") version "1.1.0"
+    id("org.junit.platform.gradle.plugin") version "1.2.0"
 }
 
 /* -------------------------------------------------------------------------- */
