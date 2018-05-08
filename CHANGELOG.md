@@ -2,7 +2,14 @@
 
 ## Unreleased
 
-- 🚨 Removed unused instance variables #20
+## 1.1.0
+
+- ✨ Dependency tasks #24
+   - `swiftpmShowDependencies` - Prints the resolved dependency graph.
+   - `swiftpmResolve` - Resolves package dependencies.
+   - `swiftpmUpdate` - Updates package dependencies.
+- 🚨 Removed unused instance variables. #20
+- ➕ ShellExec (1.1.3) #23
 
 ## 1.0.0
 
