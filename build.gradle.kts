@@ -32,30 +32,30 @@ plugins {
     `maven-publish`
 
     // Gradle plugin portal - https://plugins.gradle.org/
-    kotlin("jvm") version "1.2.31"
-    id("at.phatbl.clamp") version "1.0.0"
+    kotlin("jvm") version "1.2.41"
+    id("at.phatbl.clamp") version "1.1.0"
     id("com.jfrog.bintray") version "1.8.0"
     id("com.gradle.plugin-publish") version "0.9.10"
 
     // Custom handling in pluginManagement
-    id("org.junit.platform.gradle.plugin") version "1.1.0"
+    id("org.junit.platform.gradle.plugin") version "1.2.0"
 }
 
 /* -------------------------------------------------------------------------- */
 // 📋 Properties
 /* -------------------------------------------------------------------------- */
 
-val artifactName by project
-val javaPackage = "$group.$artifactName"
-val pluginClass by project
-val projectUrl by project
-val tags by project
+val artifactName: String by project
+val javaPackage: String = "$group.$artifactName"
+val pluginClass: String by project
+val projectUrl: String by project
+val tags: String by project
 val labels = "$tags".split(",")
-val license by project
+val license: String by project
 
 val jvmTarget = JavaVersion.VERSION_1_8.toString()
-val spekVersion by project
-val shellExecVersion by project
+val spekVersion: String by project
+val shellExecVersion: String by project
 
 // This is necessary to make the plugin version accessible in other places
 // https://stackoverflow.com/questions/46053522/how-to-get-ext-variables-into-plugins-block-in-build-gradle-kts/47507441#47507441
