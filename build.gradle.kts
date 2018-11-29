@@ -91,6 +91,11 @@ dependencies {
     testImplementation("org.jetbrains.spek:spek-junit-platform-engine:$spekVersion")
 }
 
+tasks.getByName<Wrapper>("wrapper") {
+    gradleVersion = "4.10.2"
+    distributionType = Wrapper.DistributionType.ALL
+}
+
 /* -------------------------------------------------------------------------- */
 // 🏗 Assemble
 /* -------------------------------------------------------------------------- */
