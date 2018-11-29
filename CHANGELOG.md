@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- ⬆️🐘 Gradle (4.10.2) #26
+
 ## 1.1.0
 
 - ✨ Dependency tasks #24
