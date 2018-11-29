@@ -190,8 +190,8 @@ val codeQuality by tasks.creating
 /* -------------------------------------------------------------------------- */
 
 publishing {
-    (publications) {
-        "mavenJava"(MavenPublication::class) {
+    publications {
+        register("mavenJava", MavenPublication::class) {
             from(components["java"])
             artifactId = "$artifactName"
 
