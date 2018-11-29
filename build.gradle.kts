@@ -33,7 +33,6 @@ plugins {
 
     // Gradle plugin portal - https://plugins.gradle.org/
     kotlin("jvm") version "1.2.41"
-    id("at.phatbl.clamp") version "1.1.0"
     id("com.jfrog.bintray") version "1.8.0"
     id("com.gradle.plugin-publish") version "0.9.10"
 
@@ -90,6 +89,11 @@ dependencies {
     testImplementation("org.junit.platform:junit-platform-runner:$junitPlatformVersion")
     testImplementation("org.jetbrains.spek:spek-api:$spekVersion")
     testImplementation("org.jetbrains.spek:spek-junit-platform-engine:$spekVersion")
+}
+
+tasks.getByName<Wrapper>("wrapper") {
+    gradleVersion = "4.10.2"
+    distributionType = Wrapper.DistributionType.ALL
 }
 
 /* -------------------------------------------------------------------------- */
@@ -186,8 +190,8 @@ val codeQuality by tasks.creating
 /* -------------------------------------------------------------------------- */
 
 publishing {
-    (publications) {
-        "mavenJava"(MavenPublication::class) {
+    publications {
+        register("mavenJava", MavenPublication::class) {
             from(components["java"])
             artifactId = "$artifactName"
 
