@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- ✨ Init command #27
+- ⬆️🐘 Gradle (5.2.1) #27
 - ⬆️🐘 Gradle (4.10.2) #26
 
 ## 1.1.0
