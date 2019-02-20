@@ -92,7 +92,7 @@ dependencies {
 }
 
 tasks.getByName<Wrapper>("wrapper") {
-    gradleVersion = "4.10.2"
+    gradleVersion = "5.2.1"
     distributionType = Wrapper.DistributionType.ALL
 }
 
@@ -107,11 +107,9 @@ tasks.withType<JavaCompile> {
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = jvmTarget
 }
+
 // Include resources
-java.sourceSets["main"].resources {
-    setSrcDirs(mutableListOf("src/main/resources"))
-    include("VERSION.txt")
-}
+sourceSets.main.get().resources.srcDirs("src/main/resources")
 
 val updateVersionFile by tasks.creating {
     description = "Updates the VERSION.txt file included with the plugin"
@@ -130,13 +128,13 @@ tasks.getByName("assemble").dependsOn(updateVersionFile)
 val sourcesJar by tasks.creating(Jar::class) {
     dependsOn("classes")
     classifier = "sources"
-    from(java.sourceSets["main"].allSource)
+    from(sourceSets.main.get().allSource)
 }
 
 val javadocJar by tasks.creating(Jar::class) {
-    dependsOn("javadoc")
     classifier = "javadoc"
     val javadoc = tasks.withType<Javadoc>().first()
+    dependsOn(javadoc)
     from(javadoc.destinationDir)
 }
 

@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Spek Tests" type="org.spekframework.spek-jvm" factoryName="Spek - JVM">
-    <module name="SwiftPM_test" />
+    <module name="at.phatbl.SwiftPM.main" />
     <option name="target" value="package" />
     <option name="package" value="at.phatbl.swiftpm" />
     <option name="vm-parameters" value="" />
@@ -8,6 +8,8 @@
     <option name="working-directory" value="$PROJECT_DIR$" />
     <option name="alternative-jre-path" value="" />
     <option name="pass-parent-envs" value="true" />
-    <method />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
   </configuration>
 </component>
