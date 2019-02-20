@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- ⬆️ Bintray (1.8.4)
+
 ## 1.2.0
 
 - ✨ Init command #27
