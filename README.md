@@ -19,6 +19,7 @@ is supported.
 - `swiftpmDescribe` - Prints a summary of the modules defined by in the package.
 - `swiftpmDumpPackage` - Prints parsed Package.swift as JSON.
 - `swiftpmGenerateXcodeProject` - Generates an Xcode project for the package.
+- `swiftpmInit` - Initializes a new package.
 - `swiftpmReset` - Resets the complete cache/build directory.
 - `swiftpmToolsVersion` - Show tools version of the current package.
 - `swiftpmVersion` - Prints the version of SwiftPM being used.
