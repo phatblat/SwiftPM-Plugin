@@ -2,7 +2,10 @@
 
 ## Unreleased
 
+## 1.2.0
+
 - ✨ Init command #27
+- ➕ ShellExec (1.2.0) #27
 - ⬆️🐘 Gradle (5.2.1) #27
 - ⬆️🐘 Gradle (4.10.2) #26
 
