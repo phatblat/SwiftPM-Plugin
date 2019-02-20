@@ -33,7 +33,7 @@ plugins {
 
     // Gradle plugin portal - https://plugins.gradle.org/
     kotlin("jvm") version "1.2.41"
-    id("com.jfrog.bintray") version "1.8.0"
+    id("com.jfrog.bintray") version "1.8.4"
     id("com.gradle.plugin-publish") version "0.9.10"
 
     // Custom handling in pluginManagement
